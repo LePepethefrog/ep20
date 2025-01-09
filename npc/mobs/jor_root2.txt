@@ -1,0 +1,8 @@
+//===== rAthena Script =======================================
+//============================================================
+
+jor_root1	monster	Jormungandr Guardian-P	21972,5
+jor_root1	monster	Jormungandr Guardian-Y	21973,15
+jor_root1	monster	Jormungandr Sanctuary Guardian	21989,60
+jor_root1	monster	Jormungandr Church Warlock	21987,40
+jor_root1	monster	Jormungandr Church Bishop	21988,30

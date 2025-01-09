@@ -1,0 +1,6 @@
+//===== rAthena Script =======================================
+//============================================================
+
+jor_maze	monster	Jormungandr Guardian-P	21972,35
+jor_maze	monster	Jormungandr Guardian-Y	21973,35
+jor_maze	monster	Jormungandr Sanctuary Guardian	21989,30

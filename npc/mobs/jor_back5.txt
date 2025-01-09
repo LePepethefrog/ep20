@@ -1,0 +1,11 @@
+//===== rAthena Script =======================================
+//============================================================
+
+jor_back5	monster	Shining Seaweed	21524,10
+jor_back5	monster	Icewind Egg	21984,10
+jor_back5	monster	Copo	21965,40
+jor_back5	monster	Grey Icewind	21966,60
+jor_back5	monster	Egg Copo	21968,40
+jor_back5	monster	Suspicious Iwin Trainee	21974,20
+jor_back5	monster	Suspicious Private Iwin	21975,20
+

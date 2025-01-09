@@ -1,0 +1,5 @@
+//===== rAthena Script =======================================
+//============================================================
+
+jor_twig	monster	Jormungandr Guardian-P	21997,20
+jor_twig	monster	Jormungandr Guardian-Y	21998,20

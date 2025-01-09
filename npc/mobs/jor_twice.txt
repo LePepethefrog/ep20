@@ -1,0 +1,8 @@
+//===== rAthena Script =======================================
+//============================================================
+
+jor_twice	monster	Jormungandr Guardian-P	21972,20
+jor_twice	monster	Jormungandr Guardian-Y	21973,20
+jor_twice	monster	Snow Rabbit Slug	21969,60
+jor_twice	monster	Angel Iceslug	21983,60
+jor_twie	monster	Jormungandr Church Warlock	21987,40

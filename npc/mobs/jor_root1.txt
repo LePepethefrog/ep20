@@ -1,0 +1,8 @@
+//===== rAthena Script =======================================
+//============================================================
+
+jor_root1	monster	Jormungandr Guardian-P	21972,20
+jor_root1	monster	Jormungandr Guardian-Y	21973,10
+jor_root1	monster	Jormungandr Sanctuary Guardian	21989,20
+jor_root1	monster	Superior Rgan Warlock	21985,80
+jor_root1	monster	Superior Rgan Healer	21986,70

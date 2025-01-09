@@ -1,0 +1,9 @@
+//===== rAthena Script =======================================
+//============================================================
+
+jor_back6	monster	Icewind	21967,100
+jor_back6	monster	Armored Copo	23060,55
+jor_back6	monster	Bear Bug	21971,75
+jor_back6	monster	Shining Seaweed	21524,10
+jor_back6	monster	Suspicious Private Iwin	21978,20
+
