@@ -8,4 +8,4 @@ jor_back4	monster	Angel Iceslug	21983,50
 jor_back4	monster	Suspicious Private Iwin	21976,30
 jor_back4	monster	Suspicious Private Iwin	21977,30
 jor_back4	monster	Suspicious Private Iwin	21978,20
-jor_back4	boss_monster	Snowstorm Angel	21996,1,3600000,600000,0
+jor_back4	boss_monster	Snowstorm Angel	21996,1,21600000,600000,0
