@@ -1,0 +1,8 @@
+//============================================================
+// Episode 20 Instances
+//============================================================
+1@twbs	mapflag	noteleport
+1@twbs	mapflag	monster_noteleport
+1@slug	mapflag	noteleport
+1@slug	mapflag	monster_noteleport
+
