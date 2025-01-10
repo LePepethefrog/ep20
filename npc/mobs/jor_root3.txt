@@ -4,4 +4,4 @@
 jor_root3	monster	Bear Bug	21971,30
 jor_root3	monster	Melibe Slug	21970,110
 jor_root3	monster	Jormungandr Sanctuary Cleaner	21990,130
-jor_root3	boss_monster	Sanctuary Cleaning Chief	21980,1,3600000,600000,0
+jor_root3	boss_monster	Sanctuary Cleaning Chief	21980,1,21600000,600000,0
