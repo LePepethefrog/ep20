@@ -57,7 +57,7 @@ prontera,150,180,4	script	Openlasgand	10537,{
 				mes "Civilians cannot enter.";
 				close;
 			case IE_OK:
-				setquest 88888; //custom quest number Hunt Rasgand for the item reward not a CD quest
+				setquest 12591; //Hunt Rasgand for the item reward not a CD quest
 				mapannounce "jor_twig","A party member, "+strcharinfo(0)+" of the party "+getpartyname(.@party_id)+" is entering the instance, "+.@md_name$+".",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
 				close;
 			}
