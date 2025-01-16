@@ -1,0 +1,460 @@
+//Sticky Sea Version 1.0
+//Dialogue is based on the 2nd+ time you run the instance 
+//Instance is the latest version, after the change, including text
+//Instance creator NPC
+prontera,155,180,4	script	Openss	21995,{
+	disable_items;
+	set .@party_id,getcharid(1);
+	set .@md_name$, "Sticky Sea";
+
+	if (!.@party_id) {
+		mes "You don't have a party.";
+		close;
+	}
+	if (is_party_leader() == true) {
+			mes "[Cocopo]";
+			mes "Do you wish to open the instance?";
+			next;
+			set .@i, select("Open Instance.:Enter Instance.:Cancel.");
+		} else {
+			mes "[Cocopo]";
+			mes "Do you wish to enter the instance?";
+			next;
+			set .@i, select(":Now I will go down.:Cancel.");
+		}
+		switch(.@i) {
+		case 1:
+			if (instance_create(.@md_name$) < 0) {
+				mes "[Cocopo]";
+				mes "Instance is open.";
+				close;
+			}
+			mes "[Cocopo]";
+			mes "Instance is already open.";
+			close;
+		case 2:
+			switch(instance_enter(.@md_name$)) {
+			case IE_OTHER:
+				mes "[Cocopo]";
+				mes "An unknown error occurred.";
+				close;
+			case IE_NOINSTANCE:
+				mes "[Cocopo]";
+				mes "There is no instance talk with your party leader.";
+				close;
+			case IE_NOMEMBER:
+				mes "[Cocopo]";
+				mes "Civilians cannot enter.";
+				close;
+			case IE_OK:
+				setquest 11949; //Official quest ID to hunt the boss
+				mapannounce "jor_back4","A party member, "+strcharinfo(0)+" of the party "+getpartyname(.@party_id)+" is entering the instance, "+.@md_name$+".",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+				close;
+			}
+		case 3:
+			close;
+		}
+	}	
+//Instance NPCs	
+1@slug,53,61,4	script	Lorohu#is	21995,{
+	if (is_party_leader() == true) {
+		donpcevent instance_npcname("Friderike#fri1")+"::OnStart";	
+		//This got changed on the latest version of the instance
+		//너에게 "님! 프리데리케님!!
+		//cutin "ep20_cocopo02.png", 2;
+		//mes "[Cocopo]";
+		//mes "Hello to you Lady Friderike!!!";
+		//next;				
+		cutin "ep19_friederike01.png", 2;
+		mes "[Friderike]";
+		mes "Lorohu!!!";
+		mes "Why are you here again!";		
+		next;
+		cutin "ep20_cocopo02.png", 2;
+		mes "[Lorohu]";
+		mes "I followed you because I was worried about you, Friderike!";
+		next;
+		cutin "ep19_friederike04.png", 2;
+		mes "[Friderike]";
+		mes "If you don't go back quickly, I'll tell Voglinde!";
+		next;
+		cutin "ep20_cocopo03.png", 2;
+		mes "[Lorohu]";
+		mes "Meep... okay.";
+		next;
+		cutin "ep19_friederike02.png", 2;
+		mes "[Friderike]";
+		mes "Since Lorohu keeps following you and there are a lot of Copos that come to eat snails, and you can't tell them to stop coming it's better to clean up the dangerous monsters.";
+		next;
+		cutin "", 255;
+		mes "-To proceed to the next step, progress of the party leader is required.-";
+		donpcevent instance_npcname("Friderike#fri1")+"::OnCocopo";
+		disablenpc instance_npcname("Lorohu#is");
+		donpcevent instance_npcname("Lorohu#ms")+"::OnStart";
+		navigateto("1@slug", 83, 127, NAV_NONE, 1);	
+		close3;
+	} else {
+		mes "[Lorohu]";
+		mes "Go there with your party leader!";
+		navigateto("1@slug", 83, 127, NAV_NONE, 1);
+		close;
+	}
+}
+1@slug,53,61,4	script	Lorohu#ms	21995,{
+	navigateto("1@slug", 83, 127, NAV_NONE, 1);
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Lorohu#ms");
+	end;
+OnStart:
+    enablenpc instance_npcname("Lorohu#ms");
+	.@mappy$ = instance_mapname("1@slug");	
+	areamonster .@mappy$,60,65,70,85,"Angel Iceslug",21983,3,instance_npcname("Lorohu#ms")+"::OnMyMobDead";
+	areamonster .@mappy$,88,110,100,120,"Angel Iceslug",21983,3,instance_npcname("Lorohu#ms")+"::OnMyMobDead";
+	'mobp1 = 6;
+end;
+OnMyMobDead:
+	if(--'mobp1 <= 0) {
+		donpcevent instance_npcname("Copo#p2")+"::OnStart";
+	}	
+end;	
+}
+1@slug,83,127,4	script	Copo#p2	21995,{	
+if (is_party_leader() == true) {
+	donpcevent instance_npcname("Friderike#fri2")+"::OnStart";	
+	mes "[Copo]";
+	mes "Meep!!!";
+	mes "Meep!!!";
+	next;
+	cutin "ep19_friederike02.png", 2;
+	//여기도 출를 지역이니까 잘 확인해봐요.
+	mes "[Friderike]";
+	mes "This is also a popular area, so check carefully.";
+	next;
+	cutin "", 255;
+	mes "-To proceed to the next step, progress of the party leader is required.-";	
+	donpcevent instance_npcname("Friderike#fri2")+"::OnCocopo";
+	disablenpc instance_npcname("Copo#p2");
+	donpcevent instance_npcname("Copo#ms")+"::OnStart";
+	navigateto("1@slug", 47, 186, NAV_NONE, 1);	
+	close3;
+	} else {
+	mes "[Copo]";
+	mes "Meep!";
+	navigateto("1@slug", 47, 186, NAV_NONE, 1);
+	close;
+	}
+OnInstanceInit:
+	disablenpc instance_npcname("Copo#p2");
+	end;
+OnStart:
+    enablenpc instance_npcname("Copo#p2");
+}
+1@slug,83,127,4	script	Copo#ms	21995,{
+	navigateto("1@slug", 47, 186, NAV_NONE, 1);	
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Copo#ms");
+	end;
+OnStart:
+    enablenpc instance_npcname("Copo#ms");
+	.@mappy$ = instance_mapname("1@slug");	
+	areamonster .@mappy$,73,140,60,150,"Angel Iceslug",21983,3,instance_npcname("Copo#ms")+"::OnMyMobDead";
+	areamonster .@mappy$,45,160,50,180,"Angel Iceslug",21983,3,instance_npcname("Copo#ms")+"::OnMyMobDead";
+	'mobp2 = 6;
+end;
+OnMyMobDead:
+	if(--'mobp2 <= 0) {
+		donpcevent instance_npcname("Copo#p3")+"::OnStart";
+	}	
+end;	
+}
+1@slug,47,186,4	script	Copo#p3	21995,{	
+if (is_party_leader() == true) {
+	donpcevent instance_npcname("Friderike#fri3")+"::OnStart";	
+	mes "[Copo]";
+	mes "Meep Meep Meep";
+	mes "Meep";
+	next;
+	cutin "ep19_friederike05.png", 2;
+	//여기도 출를 지역이니까 잘 확인해봐요.
+	mes "[Friderike]";
+	mes "They say that even though they are so cute, they are stronger than you think and can easily hunt down an ordinary snail.";
+	mes "Is it really a problem if something out of the ordinary comes out?";
+	next;
+	cutin "", 255;
+	mes "-To proceed to the next step, progress of the party leader is required.-";	
+	donpcevent instance_npcname("Friderike#fri3")+"::OnCocopo";
+	disablenpc instance_npcname("Copo#p3");
+	donpcevent instance_npcname("Copo#m3")+"::OnStart";
+	navigateto("1@slug", 157, 308, NAV_NONE, 1);	
+	close3;
+	} else {
+	mes "[Copo]";
+	mes "Meep!";
+	navigateto("1@slug", 157, 308, NAV_NONE, 1);
+	close;
+	}
+OnInstanceInit:
+	disablenpc instance_npcname("Copo#p3");
+	end;
+OnStart:
+    enablenpc instance_npcname("Copo#p3");
+}
+1@slug,47,186,4	script	Copo#m3	21995,{
+	navigateto("1@slug", 157, 308, NAV_NONE, 1);
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Copo#m3");
+	end;
+OnStart:
+    enablenpc instance_npcname("Copo#m3");
+	.@mappy$ = instance_mapname("1@slug");	
+	areamonster .@mappy$,65,200,69,215,"Angel Iceslug",21983,2,instance_npcname("Copo#m3")+"::OnMyMobDead";
+	areamonster .@mappy$,74,222,83,240,"Angel Iceslug",21983,4,instance_npcname("Copo#m3")+"::OnMyMobDead";
+	areamonster .@mappy$,103,276,112,265,"Angel Iceslug",21983,1,instance_npcname("Copo#m3")+"::OnMyMobDead";
+	areamonster .@mappy$,130,276,140,282,"Angel Iceslug",21983,1,instance_npcname("Copo#m3")+"::OnMyMobDead";
+	areamonster .@mappy$,150,296,160,305,"Angel Iceslug",21983,4,instance_npcname("Copo#m3")+"::OnMyMobDead";	
+	'mobp3 = 12;
+end;
+OnMyMobDead:
+	if(--'mobp3 <= 0) {
+		donpcevent instance_npcname("Copo#p4")+"::OnStart";
+	}	
+end;	
+}
+1@slug,157,308,4	script	Copo#p4	21995,{	
+if (is_party_leader() == true) {
+	donpcevent instance_npcname("Friderike#fri4")+"::OnStart";	
+	mes "[Copo]";
+	mes "Big Wall Meep.";
+	mes "Meep.";
+	next;
+	cutin "ep19_friederike05.png", 2;
+	//여기도 출를 지역이니까 잘 확인해봐요.
+	mes "[Friderike]";
+	mes "But is it really so delicious that you would take such risk to eat it?";
+	//Translation says ill have to ask "Lehar" later, maybe thats one of the Iwin names
+	mes "I'll have to ask Lorohu later.";
+	next;
+	cutin "", 255;
+	mes "-To proceed to the next step, progress of the party leader is required.-";	
+	donpcevent instance_npcname("Friderike#fri4")+"::OnCocopo";
+	disablenpc instance_npcname("Copo#p4");
+	donpcevent instance_npcname("Copo#m4")+"::OnStart";
+	donpcevent instance_npcname("Warp#fa")+"::OnStart";
+	close3;
+	} else {
+	mes "[Copo]";
+	mes "Meep!";
+	close;
+	}
+OnInstanceInit:
+	disablenpc instance_npcname("Copo#p4");
+	end;
+OnStart:
+    enablenpc instance_npcname("Copo#p4");	
+}
+1@slug,157,308,4	script	Copo#m4	21995,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Copo#m4");
+	end;
+OnStart:
+    enablenpc instance_npcname("Copo#m4");
+	.@mappy$ = instance_mapname("1@slug");	
+	areamonster .@mappy$,88,340,78,336,"Angel Iceslug",21983,2,instance_npcname("Copo#m4")+"::OnMyMobDead";
+	areamonster .@mappy$,63,341,50,325,"Angel Iceslug",21983,4,instance_npcname("Copo#m4")+"::OnMyMobDead";
+	'mobp4 = 6;
+end;
+OnMyMobDead:
+	if(--'mobp4 <= 0) {
+		donpcevent instance_npcname("Copo#pf")+"::OnStart";
+	}	
+end;	
+}	
+1@slug,66,334,4	script	Copo#pf	21995,{	
+if (is_party_leader() == true) {
+	donpcevent instance_npcname("Friderike#fri5")+"::OnStart";	
+	mes "[Copo]";
+	mes "Meep~.";
+	next;
+	cutin "ep19_friederike02.png", 2;
+	mes "[Friderike]";
+	mes "It's dangerous!";
+	mes "That monster has appeared again!!";
+	next;
+	cutin "", 255;
+	mes "-To proceed to the next step, progress of the party leader is required.-";	
+	donpcevent instance_npcname("Friderike#fri5")+"::OnCocopo";
+	disablenpc instance_npcname("Copo#pf");
+	donpcevent instance_npcname("Bossspawn#bs")+"::OnStart";
+	close3;
+	} else {
+	mes "[Copo]";
+	mes "Meep!";
+	close;
+	}
+OnInstanceInit:
+	disablenpc instance_npcname("Copo#pf");
+	end;
+OnStart:
+    enablenpc instance_npcname("Copo#pf");	
+	
+}
+//Boss Spawn
+1@slug,0,0,0	script	Bossspawn#bs	-1,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Bossspawn#bs");
+	end;
+OnStart:
+    enablenpc instance_npcname("Bossspawn#bs");
+	monster instance_mapname("1@slug"),50,341, "Fallen Angel Slug",21982,1,instance_npcname("Bossspawn#bs")+"::OnMyMobDead"; // MD_EP20_FALLENANGEL
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@slug");
+	if (mobcount(.@map$,instance_npcname("Bossspawn#bs")+"::OnMyMobDead") < 1) {
+		donpcevent instance_npcname("Copo#reward")+"::OnStart";
+		disablenpc instance_npcname("Bossspawn#bs");
+	}
+	end;	
+}
+//Reward NPC
+1@slug,66,334,4	script	Copo#reward	21995,{	
+	disable_items;
+	donpcevent instance_npcname("Friderike#fri5")+"::OnStart";	
+	if (checkquest(11949,HUNTING) == 2) {
+		mes "[Copo]";
+		mes "Meep~.";
+		erasequest 11949;
+		next;
+		cutin "ep19_friederike05.png", 2;		
+		mes "[Friderike]";
+		mes "Okay";
+		mes "When I look at these kids, I can understand what they're saying, even if it's not with words I can feel it in my heart.";
+		next;
+		cutin "ep19_friederike05.png", 2;
+		//Im not sure about the translation here if shes talking about Copos Lorohu, or an Iwin npc or a formal way to talk about the player
+		mes "[Friderike]";
+		mes "I think I've become a bit closer to the Copos too...";
+		next;
+		cutin "", 255;
+		mes "[Copo]";
+		mes "Meep Meep~.";
+		//It used to get 3 guaranteed now is random 1-3
+		getitem 1001217,(rand(1,3));
+		next;
+		donpcevent instance_npcname("Friderike#fri5")+"::OnCocopo";
+		warp "SavePoint", 0, 0;
+		close3;
+	}else{
+		mes "[Copo]";
+		mes "Meep Meep~.";
+		next;
+		warp "SavePoint", 0, 0;
+		close3;
+	}
+OnInstanceInit:
+	disablenpc instance_npcname("Copo#reward");
+	end;
+OnStart:
+    enablenpc instance_npcname("Copo#reward");	
+}
+//Friderike Collection can probably clone the NPC but too much brainpower for my 2 braincells
+1@slug,51,61,4	script	Friderike#fri1	10458,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Friderike#fri1");
+	end;
+OnStart:
+    enablenpc instance_npcname("Friderike#fri1");	
+	end;
+OnCocopo:	
+	disablenpc instance_npcname("Friderike#fri1");
+	end;
+}
+1@slug,85,126,4	script	Friderike#fri2	10458,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Friderike#fri2");
+	end;
+OnStart:
+    enablenpc instance_npcname("Friderike#fri2");	
+	end;
+OnCocopo:	
+	disablenpc instance_npcname("Friderike#fri2");
+	end;
+}
+1@slug,49,185,4	script	Friderike#fri3	10458,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Friderike#fri3");
+	end;
+OnStart:
+    enablenpc instance_npcname("Friderike#fri3");	
+	end;
+OnCocopo:	
+	disablenpc instance_npcname("Friderike#fri3");
+	end;
+}
+1@slug,159,308,4	script	Friderike#fri4	10458,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Friderike#fri4");
+	end;
+OnStart:
+    enablenpc instance_npcname("Friderike#fri4");	
+	end;
+OnCocopo:	
+	disablenpc instance_npcname("Friderike#fri4");
+	end;
+}
+1@slug,68,335,4	script	Friderike#fri5	10458,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Friderike#fri5");
+	end;
+OnStart:
+    enablenpc instance_npcname("Friderike#fri5");	
+	end;
+OnCocopo:	
+	disablenpc instance_npcname("Friderike#fri5");
+	end;
+}
+//Warper for final area
+1@slug,148,310,0	script	Warp#fa	45,2,2,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("Warp#fa");
+	end;
+OnStart:
+    enablenpc instance_npcname("Warp#fa");	
+	end;
+OnTouch_:
+	.@map$ = instance_mapname("1@slug");
+	warp .@map$,88,340; 
+	end;
+}
+//Other Warps
+1@slug,99,339,0	script	Warp#fab	45,2,2,{
+	end;
+//No reason to not load this on instance init since no one will get there lol	
+OnTouch_:
+	.@map$ = instance_mapname("1@slug");
+	warp .@map$,153,305; 
+	end;
+}
+1@slug,40,52,0	script	Warp#start	45,2,2,{
+	end;
+OnTouch_:
+	warp "SavePoint", 0, 0;
+	end;
+}
+//Cocopo daily quest spawner
+1@slug,0,0,0	script	#MDCocopospawner	-1,{
+	end;
+OnInstanceInit:
+.@map$ = instance_mapname("1@slug");
+monster	.@map$,0,0,"Cocopo",21995,30;	
+}

@@ -1,0 +1,929 @@
+//The Immortal (Normal Mode) Version 1.5 
+//Rasgand summon avoid example https://www.youtube.com/watch?v=BwUZxP_7zpU
+//Couldnt figure out how to make rasgand spectre get bigger or smaller, something something effect 420 & 422 (or maybe something completely different)I couldnt figure it out
+//Instead used the -unused- Rasgand ID from story mode to make it the phantom and use client side effects
+//I used a 2022 client on development so there is a non 0% chance I needed a newer client sucks to suck tho
+//After watching even more footage from Rasgand in kro, Rasgand always takes 10% damage and additionally has the reduction from NPC_RELIEVE_ON
+//I had already coded it with him changing his umob_damagetaken instead of the level of NPC_RELIEVE_ON and since they achieve the same goal
+//Im not changing like 500 lines of code with that in mind, I already rewrote the instance like 3 times as I found/understood more about the fight 
+//During this file i will use phantom spectre and clone as equivalents
+//All the calculations can be improved and the code can be optimized
+//This what was the result of my understanding of kro mechanics, coding knowledge w chatgpt help, and A LOT of trial and error
+//TODO make the phantom grow in size or get smaller depending on distance to Rasgand and switch back his ID to 21981 once that is figured out
+
+//Instance creator NPC
+prontera,150,180,4	script	Openlasgand	10537,{
+	disable_items;
+	set .@party_id,getcharid(1);
+	set .@md_name$, "The Immortal";
+
+	if (!.@party_id) {
+		mes "You don't have a party.";
+		close;
+	}
+	if (is_party_leader() == true) {
+			mes "[...]";
+			mes "Do you wish to open the instance?";
+			next;
+			set .@i, select("Open Instance.:Enter Instance.:Cancel.");
+		} else {
+			mes "[..]";
+			mes "Do you wish to enter the instance?";
+			next;
+			set .@i, select(":Now I will go down.:Cancel.");
+		}
+		switch(.@i) {
+		case 1:
+			if (instance_create(.@md_name$) < 0) {
+				mes "[...]";
+				mes "Instance is open.";
+				close;
+			}
+			mes "[...]";
+			mes "Instance is already open.";
+			close;
+		case 2:
+			switch(instance_enter(.@md_name$)) {
+			case IE_OTHER:
+				mes "[...]";
+				mes "An unknown error occurred.";
+				close;
+			case IE_NOINSTANCE:
+				mes "[...]";
+				mes "There is no instance talk with your party leader.";
+				close;
+			case IE_NOMEMBER:
+				mes "[...]";
+				mes "Civilians cannot enter.";
+				close;
+			case IE_OK:
+				setquest 88888; //custom quest number Hunt Rasgand for the item reward not a CD quest
+				mapannounce "jor_twig","A party member, "+strcharinfo(0)+" of the party "+getpartyname(.@party_id)+" is entering the instance, "+.@md_name$+".",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+				close;
+			}
+		case 3:
+			close;
+		}
+	}	
+
+//Battle starter NPC text to party leader is official kro text translated with google lens
+//Omegalul had to make 2 npc to deattach the dialogue box from the player
+
+1@twbs,94,78,4	script	Rasgand#bs	21981,{
+	if (is_party_leader() == true) {
+		mes "^0000FFThe eyes of Rasgand, sealed with a strong barrier, are glaring at you. It seems that you should weaken his power before it grows stronger.";
+		next;
+		switch(select("Cancel:Break the seal and attack")) {
+		case 1:
+			close;
+		case 2:
+			disablenpc instance_npcname("Rasgand#bs");	
+			donpcevent instance_npcname("#Rastalk")+"::OnStart";
+			close;	
+		}
+	} else {
+		mes "[Rasgand]";
+		mes "...";
+		close;
+	}
+}
+1@twbs,94,78,4	script	#Rastalk	21981,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#Rastalk");
+	end;
+OnStart:
+    enablenpc instance_npcname("#Rastalk");
+	npctalk "You arrogant Bastard! You are dreaming in vain! You won't make it out alive today.";
+	sleep 5000;
+	//오라 나의 환경 이며, 나의 모든 힘든 끌어 내 다요!
+	//npctalk "Come forth, my world and my burdens, I shall unleash them all!";		
+	npctalk "Come forth, my spectre, draw out all of my strength!";		
+	sleep 5000;
+	disablenpc instance_npcname("#Rastalk");
+	donpcevent instance_npcname("#Rasgandn1")+"::OnStart";	
+	donpcevent instance_npcname("#Rasgandn1")+"::OnHeal";	
+	donpcevent instance_npcname("#Rasgandn1")+"::OnLoop";
+	donpcevent instance_npcname("#Rasgandn1")+"::OnPhantom";	
+	donpcevent instance_npcname("#Rasgandn1")+"::OnDamage";
+}
+
+// Rasgand Mechanics controller Rasgand himself has no damage reduction instead it uses the NPC_RELIEVE_ON to have 99% damage reduction
+// Update this may not be exactly the case, it seems his NPC_RELIEVE_ON changes constantly depending on his distance to his clone
+// He takes more or less damage depending on how close to his spectre he is
+1@twbs,33,33,4	script	#Rasgandn1	-1,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#Rasgandn1");
+	end;
+OnStart:
+    enablenpc instance_npcname("#Rasgandn1");
+	//this is -not so- loosely based off the horror toy factory script 
+    set .@map$, instance_mapname("1@twbs");
+    monster .@map$,94,78, "Ultimate Rasgand",21981,1,instance_npcname("#Rasgandn1")+"::OnMyMobDead"; // MD_ULTIMATE_LASGAND
+    'urasgand = $@mobid[0];
+    setunitdata 'urasgand, UMOB_HP, 500000000;
+    getunitdata 'urasgand, .@data;
+    setarray .@data[UMOB_X], .@data[UMOB_Y]; // Im not sure this array is needed but I mostly copied it from HTF
+	// Rasgand Phantom can spawn in any cardinal
+	//South	
+	set .spawn1_x, 94;
+	set .spawn1_y, 59;
+	//East
+	set .spawn2_x, 114;
+	set .spawn2_y, 78;
+	//North
+	set .spawn3_x, 94;
+	set .spawn3_y, 99;
+	//West
+	set .spawn4_x, 75;
+	set .spawn4_y, 78;
+	// Select a random cardinal
+	set .random_index, rand(1, 4); 
+	// Pretty sure there was an easier way
+	if (.random_index == 1) {
+		set .x, .spawn1_x;
+		set .y, .spawn1_y;
+	} else if (.random_index == 2) {
+		set .x, .spawn2_x;
+		set .y, .spawn2_y;
+	} else if (.random_index == 3) {
+		set .x, .spawn3_x;
+		set .y, .spawn3_y;
+	} else if (.random_index == 4) {
+		set .x, .spawn4_x;
+		set .y, .spawn4_y;
+	}
+	monster .@map$, .x, .y, "Rasgand Spectre", 21979, 1, instance_npcname("#Rasgandn1") + "::OnMyMobDead"; // EP20_DEMIGOD_LASGAND 
+	'phantom = $@mobid[0];
+	getunitdata 'phantom,.@pdata;
+	//setunitdata 'phantom, UMOB_HP, 100000000; //debugging
+	//The phantom takes only 1 hp from all types of attack, using NPC_INVINCIBLE for some reason activating it gives him unlimited movespeed and aspd
+	//I used the ID that is used for story mode rasgand for the phantom, so i can alter the monster effect on the client side
+	//unitskilluseid 'phantom, "NPC_INVINCIBLE",1; //For some reason turned him into sanic gotta go fast
+	setunitdata 'phantom,UMOB_MODE,.@pdata[UMOB_MODE]+0x010000|0x020000|0x040000|0x100000|0x4000000; //alternatively make him immune to damage
+	initnpctimer;
+	//distance function refreshing every 3 seconds to burst Rasgand easily
+    while (unitexists('urasgand) == true) {
+
+        // Obtain data from both rasgand and his phantom
+        getunitdata 'urasgand, .@data;
+		getunitdata 'phantom, .@pdata;
+		// Good ol' Failsafe
+		if (.@data[UMOB_HP] <= 0) {
+            break;  // Exit the loop if the boss's HP is zero or less
+        }
+
+        // Arena center coordinates
+        .@center_x = 94;
+        .@center_y = 78;
+
+		// 11*11 square area boundaries
+		// Rasgand should be moved to the outer edge and away from his spectre
+		.@square_min_x = .@center_x - 10;
+		.@square_max_x = .@center_x + 10;
+		.@square_min_y = .@center_y - 10;
+		.@square_max_y = .@center_y + 10;
+
+		// Maximum radius (maximum distance for 100% damage taken)
+		// This basically works as a control for max damage the bigger the radius the less damage rasgand takes based on distance (requiring more distance)
+		// If the number is too big he wont ever take full damage (aka 10% of the original damage)
+		.@max_radius = 13;  
+
+		// Boss's current coordinates
+		.@boss_x = .@data[UMOB_X];
+		.@boss_y = .@data[UMOB_Y];
+		.@spec_x = .@pdata[UMOB_X];
+		.@spec_y = .@pdata[UMOB_Y];
+
+		// Check if urasgand is within the 7x7 square
+		if (.@boss_x >= .@square_min_x && .@boss_x <= .@square_max_x && 
+			.@boss_y >= .@square_min_y && .@boss_y <= .@square_max_y) {
+			.@damage_taken = 1; // 1% damage taken in the 3x3 square
+		} else {
+        // Calculate the Manhattan distance between the boss and the phantom
+		if (.@boss_x < .@spec_x) {
+			.@distance_x = .@spec_x - .@boss_x;
+		} else {
+			.@distance_x = .@boss_x - .@spec_x;
+		}	
+		if (.@boss_y < .@spec_y) {
+			.@distance_y = .@spec_y - .@boss_y;
+		} else {
+			.@distance_y = .@boss_y - .@spec_y;
+		}
+
+        // Calculate the total Manhattan distance (integer values only)
+        .@total_distance = (.@distance_x + .@distance_y);
+
+        // Calculate the damage reduction based on distance
+        if (.@total_distance <= .@max_radius) {
+            .@damage_taken = (100 * .@total_distance) / .@max_radius; // Linear scaling
+		} else {
+            .@damage_taken = 100; // Maximum damage taken beyond max radius (no reduction) This can also work as a limit to max damage
+		}
+
+		if (.@damage_taken <= 0) {
+			.@damage_taken = 1; // Ensure Rasgand takes damage lul
+		}
+		
+		// Adjust phantom's stats if the total distance is small
+        if (.@total_distance <= 5) {
+            setunitdata 'phantom, UMOB_ATKMIN,.@pdata[UMOB_ATKMIN] + 100000;
+            setunitdata 'phantom, UMOB_ATKMAX,.@pdata[UMOB_ATKMAX] + 200000;
+            setunitdata 'phantom, UMOB_MATKMIN,.@pdata[UMOB_MATKMIN] + 100000;
+            setunitdata 'phantom, UMOB_MATKMAX,.@pdata[UMOB_MATKMAX] + 200000;
+			setunitdata 'phantom, UMOB_STR,.@pdata[UMOB_STR] + 300;
+			setunitdata 'phantom, UMOB_INT,.@pdata[UMOB_INT] + 300;
+			setunitdata 'phantom, UMOB_DEX,.@pdata[UMOB_DEX] + 300;
+			
+			// 33% chance to cast Storm Gust
+            if (rand(1, 100) <= 33) {
+                unitskillusepos 'urasgand, 89, 10, .@boss_x, .@boss_y, -50;
+                unitskillusepos 'phantom, 89, 10, .@spec_x, .@spec_y, -50;
+            }
+        } else {
+            setunitdata 'phantom, UMOB_ATKMIN, .@data[UMOB_ATKMIN];
+            setunitdata 'phantom, UMOB_ATKMAX, .@data[UMOB_ATKMAX];
+            setunitdata 'phantom, UMOB_MATKMIN, .@data[UMOB_MATKMIN];
+            setunitdata 'phantom, UMOB_MATKMAX, .@data[UMOB_MATKMAX];
+			setunitdata 'phantom, UMOB_STR,.@data[UMOB_STR];
+			setunitdata 'phantom, UMOB_INT,.@data[UMOB_INT];
+			setunitdata 'phantom, UMOB_DEX,.@data[UMOB_DEX];
+        }
+		}
+		// Set the monster's damage taken percentage (reverse of damage reduction)
+		setunitdata 'urasgand, UMOB_DAMAGETAKEN, .@damage_taken;
+	
+		// Server tick for updating umob_damagetaken
+		sleep 3000; // Checking the distance of Rasgand and his clone every 3 seconds
+    }
+//Healing function Rasgand heals 5m a second, originally this function was run together with the damage reduction but decided to separate them so a different sleep value can be used
+OnHeal:	
+	while (unitexists('urasgand) == true) {
+
+        // Obtain the data of the boss again for each iteration
+        getunitdata 'urasgand, .@data;
+		getunitdata 'urasgand, .@data[UMOB_HP];
+		//Updating every half a second so 2.5m heal a tick
+		setunitdata 'urasgand, UMOB_HP, .@data[UMOB_HP] + 2500000;
+        // If the boss is dead (HP is 0), exit the loop //Failsafe
+        if (.@data[UMOB_HP] <= 0) {
+            break;
+        }
+	// Server tick for updating umob_damagetaken & the umob_hp
+        sleep 500; 
+	}
+//Skill cast, officially they come from the straight path farthest away from the boss which includes diagonals
+// but that would be too complicated (for me) calculation wise so they come from the farthest cardinal direction instead	
+OnLoop:
+	// Using different variables because im not sure if i can use the same ones
+	sleep 2000; //Time for Rasgand to cast his NPC_RELIEVE_ON
+	while (unitexists('urasgand) == true) {
+	getunitdata 'urasgand, .@data;
+	'bossx = .@data[UMOB_X];
+	'bossy = .@data[UMOB_Y];
+	if (.@data[UMOB_HP] <= 0) {
+		break;  // Failsafe because it was looping endlessly
+        }
+	// Center of the arena
+    .@centerX = 94;
+    .@centerY = 74;
+	// Cardinal Calculations that work somehow
+    .@distancexe = .@centerX - 'bossx;
+    .@distancexw = 'bossx - .@centerX;
+    .@distanceys = .@centerY - 'bossy;
+    .@distanceyn = 'bossy - .@centerY;
+	
+    .@randomSkill = rand(1, 3);
+	if((.@distancexe >= .@distancexw) && (.@distancexe >= .@distanceys) && (.@distancexe >= .@distanceyn)){
+		if(.@randomSkill == 1){
+			.@skill = 770;
+			// 9 Heaven drives worth of space
+			unitskillusepos 'urasgand,.@skill,5,('bossx+14),'bossy,-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,5,('bossx+12),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,5,('bossx+10),'bossy,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+8),'bossy,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,5,('bossx+6),'bossy,-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,5,'bossx,'bossy,-50;	
+			//unitskillusepos 'urasgand,.@skill,5,('bossx-2),'bossy,-50;
+			//unitskillusepos 'urasgand,.@skill,5,('bossx+2),'bossy,-50;
+			//unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+2),-50;
+			//unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-2),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),('bossy-4),-50;
+		}
+		if(.@randomSkill == 2) {
+			.@skill = 769;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+14),'bossy,-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,1,('bossx+12),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,1,('bossx+10),'bossy,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+8),'bossy,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,1,('bossx+6),'bossy,-50,0,0,true;	
+			sleep 200;					
+			unitskillusepos 'urasgand,.@skill,1,'bossx,'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),('bossy-4),-50;
+		}
+		if(.@randomSkill == 3) {
+			.@skill = 739;
+			unitskillusepos 'urasgand,.@skill,3,('bossx+14),'bossy,-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,3,('bossx+12),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,3,('bossx+10),'bossy,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,3,('bossx+8),'bossy,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,3,('bossx+6),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,3,'bossx,'bossy,-50;	
+		}
+    } else if((.@distancexw > .@distancexe) && (.@distancexw > .@distanceys) && (.@distancexw > .@distanceyn)) {
+			if(.@randomSkill == 1){
+			.@skill = 770;
+			// 9 Heaven drives worth of space
+			unitskillusepos 'urasgand,.@skill,5,('bossx-14),'bossy,-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,5,('bossx-12),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,5,('bossx-10),'bossy,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-8),'bossy,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,5,('bossx-6),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,5,'bossx,'bossy,-50;
+			//unitskillusepos 'urasgand,.@skill,5,('bossx-2),'bossy,-50;
+			//unitskillusepos 'urasgand,.@skill,5,('bossx+2),'bossy,-50;
+			//unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+2),-50;
+			//unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-2),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),('bossy-4),-50;
+		}
+		if(.@randomSkill == 2) {
+			.@skill = 769;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-14),'bossy,-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,1,('bossx-12),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,1,('bossx-10),'bossy,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-8),'bossy,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,1,('bossx-6),'bossy,-50,0,0,true;	
+			sleep 200;					
+			unitskillusepos 'urasgand,.@skill,1,'bossx,'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),('bossy-4),-50;
+		}
+		if(.@randomSkill == 3) {
+			.@skill = 739;
+			unitskillusepos 'urasgand,.@skill,3,('bossx-14),'bossy,-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,3,('bossx-12),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,3,('bossx-10),'bossy,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,3,('bossx-8),'bossy,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,3,('bossx-6),'bossy,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,3,'bossx,'bossy,-50;		
+        }	
+	} else if((.@distanceys > .@distancexe) && (.@distanceys > .@distancexw) && (.@distanceys > .@distanceyn)) {
+			if(.@randomSkill == 1){
+			.@skill = 770;
+			// 9 Heaven drives worth of space
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+6),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,5,'bossx,'bossy,-50;
+//			unitskillusepos 'urasgand,.@skill,5,('bossx-2),'bossy,-50;
+//			unitskillusepos 'urasgand,.@skill,5,('bossx+2),'bossy,-50;
+//			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+2),-50;
+//			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-2),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),('bossy-4),-50;
+		}
+		if(.@randomSkill == 2) {
+			.@skill = 769;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+6),-50,0,0,true;	
+			sleep 200;						
+			unitskillusepos 'urasgand,.@skill,1,'bossx,'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),('bossy-4),-50;
+		}
+		if(.@randomSkill == 3) {
+			.@skill = 739;
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy+14),-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy+12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy+10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy+8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy+6),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,3,'bossx,'bossy,-50;		
+        }	
+	} else if((.@distanceyn > .@distancexe) && (.@distanceyn > .@distancexw) && (.@distanceyn > .@distanceys)) {
+			if(.@randomSkill == 1){
+			.@skill = 770;
+			// 9 Heaven drives worth of space
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-6),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,5,'bossx,'bossy,-50;
+			//unitskillusepos 'urasgand,.@skill,5,('bossx-2),'bossy,-50;
+			//unitskillusepos 'urasgand,.@skill,5,('bossx+2),'bossy,-50;
+			//unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+2),-50;
+			//unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-2),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,'bossx,('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx-4),('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,5,('bossx+4),('bossy-4),-50;
+		}
+		if(.@randomSkill == 2) {
+			.@skill = 769;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-6),-50,0,0,true;	
+			sleep 200;						
+			unitskillusepos 'urasgand,.@skill,1,'bossx,'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),'bossy,-50;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,'bossx,('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx-4),('bossy-4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),('bossy+4),-50;
+			unitskillusepos 'urasgand,.@skill,1,('bossx+4),('bossy-4),-50;
+		}
+		if(.@randomSkill == 3) {
+			.@skill = 739;
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy-14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy-12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy-10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy-8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'urasgand,.@skill,3,'bossx,('bossy-6),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'urasgand,.@skill,3,'bossx,'bossy,-50;		
+        }
+	}
+	// Rasgand uses a random skill every 5 seconds but it takes 1 second to get to him
+	sleep 5000;
+}
+end;
+OnPhantom:
+	sleep 2000;
+	while (unitexists('phantom) == true) {
+	getunitdata 'phantom, .@pdata;
+	'phanx = .@pdata[UMOB_X];
+	'phany = .@pdata[UMOB_Y];
+	if (.@pdata[UMOB_HP] <= 0) {
+		break;  // Failsafe because it was looping endlessly
+	}
+	// Center of the arena
+	.@midx = 94;
+	.@midy = 74;
+	// Cardinal Calculations that work somehow
+	.@deltaxe = .@midx - 'phanx;
+	.@deltaxw = 'phanx - .@midx;
+	.@deltays = .@midy - 'phany;
+	.@deltayn = 'phany - .@midy;
+
+    .@randomSkill = rand(1, 3);
+	if((.@deltaxe >= .@deltaxw) && (.@deltaxe >= .@deltays) && (.@deltaxe >= .@deltayn)){
+		if(.@randomSkill == 1){
+			.@skill = 770;
+			// 9 Heaven drives worth of space
+			unitskillusepos 'phantom,.@skill,5,('phanx+14),'phany,-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,5,('phanx+12),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,5,('phanx+10),'phany,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,5,('phanx+8),'phany,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,5,('phanx+6),'phany,-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,5,'phanx,'phany,-50;	
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),('phany-4),-50;
+		}
+		if(.@randomSkill == 2) {
+			.@skill = 769;
+			unitskillusepos 'phantom,.@skill,1,('phanx+14),'phany,-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,1,('phanx+12),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,1,('phanx+10),'phany,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,1,('phanx+8),'phany,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,1,('phanx+6),'phany,-50,0,0,true;	
+			sleep 200;					
+			unitskillusepos 'phantom,.@skill,1,'phanx,'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),('phany-4),-50;
+		}
+		if(.@randomSkill == 3) {
+			.@skill = 739;
+			unitskillusepos 'phantom,.@skill,3,('phanx+14),'phany,-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,3,('phanx+12),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,3,('phanx+10),'phany,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,3,('phanx+8),'phany,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,3,('phanx+6),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,3,'phanx,'phany,-50;	
+		}
+    } else if((.@deltaxw > .@deltaxe) && (.@deltaxw > .@deltays) && (.@deltaxw > .@deltayn)) {
+			if(.@randomSkill == 1){
+			.@skill = 770;
+			// 9 Heaven drives worth of space
+			unitskillusepos 'phantom,.@skill,5,('phanx-14),'phany,-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,5,('phanx-12),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,5,('phanx-10),'phany,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,5,('phanx-8),'phany,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,5,('phanx-6),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,5,'phanx,'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),('phany-4),-50;
+		}
+		if(.@randomSkill == 2) {
+			.@skill = 769;
+			unitskillusepos 'phantom,.@skill,1,('phanx-14),'phany,-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,1,('phanx-12),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,1,('phanx-10),'phany,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,1,('phanx-8),'phany,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,1,('phanx-6),'phany,-50,0,0,true;	
+			sleep 200;					
+			unitskillusepos 'phantom,.@skill,1,'phanx,'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),('phany-4),-50;
+		}
+		if(.@randomSkill == 3) {
+			.@skill = 739;
+			unitskillusepos 'phantom,.@skill,3,('phanx-14),'phany,-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,3,('phanx-12),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,3,('phanx-10),'phany,-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,3,('phanx-8),'phany,-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,3,('phanx-6),'phany,-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,3,'phanx,'phany,-50;	
+		}
+	} else if((.@deltays > .@deltaxe) && (.@deltays > .@deltaxw) && (.@deltays > .@deltayn)){
+		if(.@randomSkill == 1){
+			.@skill = 770;
+			// 9 Heaven drives worth of space
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+14),-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+6),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,5,'phanx,'phany,-50;			
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),('phany-4),-50;
+		}
+		if(.@randomSkill == 2) {
+			.@skill = 769;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+14),-50,0,0,true;
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+6),-50,0,0,true;	
+			sleep 200;					
+			unitskillusepos 'phantom,.@skill,1,'phanx,'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),('phany-4),-50;
+		}
+		if(.@randomSkill == 3) {
+			.@skill = 739;
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany+14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany+12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany+10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany+8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany+6),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,3,'phanx,'phany,-50;	
+		}
+	} else if((.@deltayn > .@deltaxe) && (.@deltayn > .@deltaxw) && (.@deltayn > .@deltays)) {
+			if(.@randomSkill == 1){
+			.@skill = 770;
+			// 9 Heaven drives worth of space
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-6),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,5,'phanx,'phany,-50;			
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,'phanx,('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx-4),('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,5,('phanx+4),('phany-4),-50;
+		}
+		if(.@randomSkill == 2) {
+			.@skill = 769;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-6),-50,0,0,true;	
+			sleep 200;						
+			unitskillusepos 'phantom,.@skill,1,'phanx,'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),'phany,-50;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,'phanx,('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx-4),('phany-4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),('phany+4),-50;
+			unitskillusepos 'phantom,.@skill,1,('phanx+4),('phany-4),-50;
+		}
+		if(.@randomSkill == 3) {
+			.@skill = 739;
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany-14),-50,0,0,true;	
+			sleep 200;	
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany-12),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany-10),-50,0,0,true;	
+			sleep 200;
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany-8),-50,0,0,true;	
+			sleep 200;			
+			unitskillusepos 'phantom,.@skill,3,'phanx,('phany-6),-50,0,0,true;	
+			sleep 200;		
+			unitskillusepos 'phantom,.@skill,3,'phanx,'phany,-50;		
+        }
+	}
+	sleep 5000;	
+}	
+end;
+//Function to get the phantom to TP close to rasgand if it takes too much damage
+//kro checks every 0.5 seconds which can make the phantom to keep teleporting around rasgand on some situations at least on old versions of the instance
+OnDamage:
+    getunitdata('urasgand, .@data);
+    .@ras_x = .@data[UMOB_X];
+    .@ras_y = .@data[UMOB_Y];	
+	getunitdata 'phantom, .@pdata;
+	.@phanx = .@pdata[UMOB_X];
+	.@phany = .@pdata[UMOB_Y];
+    .@dupid = atoi(strnpcinfo(2));
+    .gid[.@dupid] = 'urasgand;
+    .mhp[.@dupid] = 500000000; // Set max HP directly to the provided value
+    .last_hp[.@dupid] = .mhp[.@dupid]; // Initialize the last HP tracker
+    initnpctimer;
+    end;
+
+OnTimer3000:
+    .@dupid = atoi(strnpcinfo(2));
+    if (unitexists(.gid[.@dupid])) {
+        getunitdata(.gid[.@dupid], .@data);
+        .@diff = (.last_hp[.@dupid] - .@data[UMOB_HP]); // Compare to the last HP, not max HP
+        if (.@diff > 0) {
+            .@dps = .@diff / 3;
+            if (.@dps > 15000000) {
+				//Summon the phantom close to rasgand 15m DPS because rasgand regens 5m a second so in reality is 20m dps matching kro
+				//Officially the phantom can be warped out of bounds for some reason https://www.youtube.com/watch?v=3_k095RFdOs
+				//I put up a square to avoid the phantom going out of bounds during testing it was TP'd once out of bounds but seems really specific
+				.@randX = rand(-3, 3);
+				.@randY = rand(-3, 3);
+				.@newX = .@data[UMOB_X] + .@randX;
+				.@newY = .@data[UMOB_Y] + .@randY;
+				if (.@newX < 80) {
+					.@newX = 80;
+				} else if (.@newX > 107) {
+					.@newX = 107;
+				}
+				if (.@newY < 63) {
+					.@newY = 63;
+				} else if (.@newY > 94) {
+					.@newY = 94;
+				}
+               // announce "Ultimate Rasgand: I've taken " + F_InsertComma(.@dps) + " DPS in the last 5 seconds!", bc_all;
+				setunitdata 'phantom, UMOB_X, .@newX;
+				setunitdata 'phantom, UMOB_Y, .@newY;
+            } else {
+             //   announce "Ultimate Rasgand: I've taken " + F_InsertComma(.@dps) + " DPS in the last 5 seconds.", bc_all;
+            }
+        } else {
+           // announce "Ultimate Rasgand: No damage received in the last 5 seconds.", bc_all;
+        }
+        .last_hp[.@dupid] = .@data[UMOB_HP]; // Update the last HP for the next calculation
+    }
+    initnpctimer;
+    end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@twbs");
+	//The phantom is unkillable so less than 2 should always mean rasgand is deadge
+	if (mobcount(.@map$,instance_npcname("#Rasgandn1")+"::OnMyMobDead") <= 1) {
+		donpcevent instance_npcname("#RasgandChest")+"::OnStart";
+		killmonster .@map$,instance_npcname("#Rasgandn1")+"::OnMyMobDead";
+		disablenpc instance_npcname("#Rasgandn1");
+	}
+	stopnpctimer;
+	end;
+}
+
+// Chest Spawn + Reward NPC
+1@twbs,33,32,4	script	#RasgandChest	-1,{
+	OnInstanceInit:
+		disablenpc instance_npcname("#RasgandChest");
+		disablenpc instance_npcname("#RasgandCat");
+		end;
+	OnStart:
+		enablenpc instance_npcname("#RasgandChest");
+		enablenpc instance_npcname("#RasgandCat");			
+		monster instance_mapname("1@twbs"),94,78, "Suspicious Stone",22004,1; // EP20_MD_BOX1
+		end;
+}
+1@twbs,94,89,4	script	#RasgandCat	10537,{
+	disable_items;
+	if (checkquest(88888,HUNTING) == 2) {
+		cutin "ep20_nyar02.png", 1;
+		mes "[Nyar]";
+		mes "Why~";
+		erasequest 88888;
+		next;
+		mes "^0000FFAre you asking me to hold out my hand? It looks like you're going to hand me something.";
+		//Only the cat whiskers are guaranteed
+			getitem 1001217,4;
+			getitem 1001029,(rand(0,3));
+			getitem 1001030,(rand(0,3));
+			getitem 1001248,(rand(0,3));
+		close3;
+	}
+	else{
+		cutin "ep20_nyar03.png", 1;
+		mes "^0000FFFrom the looks of it, it seems like they are asking if I want to go out.";
+		next;
+		switch(select("Look around some more:Go Out")) {
+		case 1:
+		close3;
+		case 2:
+		warp "SavePoint", 0, 0;
+		close3;
+		}
+	}
+}	
