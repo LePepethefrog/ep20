@@ -1,0 +1,13 @@
+#Random IDs, official IDs unknown
+  - Id: 500
+    Name: The Immortal
+    Enter:
+      Map: 1@twbs
+      X: 86
+      Y: 68    
+  - Id: 501
+    Name: Sticky Sea
+    Enter:
+      Map: 1@slug
+      X: 44
+      Y: 56   
