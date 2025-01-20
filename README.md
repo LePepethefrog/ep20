@@ -5,6 +5,7 @@ The Daily quest NPC consists of 11 Daily quest, officially kro has 13 daily ques
 
 ## About instances
 Sticky sea is pretty much 1:1 to kro
+
 Rasgand was made with my best understanding of multiple sources, even some sources i could no longer find due to not speaking korean, it can be improved specially on the visual side, but functionality wise is pretty close ~90%+ to official
 
 ## About monsters
