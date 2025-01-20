@@ -1,0 +1,163 @@
+#Ep 20 quests   
+  - Id: 12591
+    Title: The Immortal One
+    Targets:
+      - Mob: MD_EP20_BOSS_LASGAND
+        Count: 1 
+  #- Id: 12588
+  #  Title: The Immortal (Normal Mode) - Wait
+  #  TimeLimit: 4h           
+  #- Id: 12589
+  #  Title: The Immortal (Hard Mode) - Wait
+  #  TimeLimit: 3d 4h    
+  - Id: 11949
+    Title: Escargot!
+    Targets:
+      - Mob: MD_EP20_FALLENANGEL
+        Count: 1  
+  #- Id: 11950
+  #  Title: Escargot! - Wait
+  #  TimeLimit: 4h           
+#Ep20 Daily Quest
+#Technically the Escargot quest and the Rasgand one are dailies but due to the instance system I didnt list them as one
+  - Id: 8845
+    Title: Example of a silent answer.
+  - Id: 8844
+    Title: Example of a silent answer. - Standby
+    TimeLimit: 4h  
+  - Id: 8858
+    Title: Salty, Sweet and Sour.
+    Targets:
+      - Mob: EP20_RABBIT_ICESLUG
+        Count: 20
+      - Mob: EP20_ANGEL_ICESLUG
+        Count: 20
+      - Mob: EP20_MELIBE_ICESLUG
+        Count: 20        
+  - Id: 8856
+    Title: Salty, Sweet and Sour. - Standby
+    TimeLimit: 4h       
+  - Id: 11951
+    Title: It's Dangerous!
+    Targets:
+      - Mob: EP20_NPC_COCOPO
+        Count: 10
+  - Id: 11952
+    Title: It's Dangerous! - Standby
+    TimeLimit: 4h   
+  - Id: 11953
+    Title: I hope they can reconcile. 1
+    Targets:
+      - Mob: EP20_ICEWIND1
+        Count: 10
+  - Id: 11954
+    Title: I hope they can reconcile. 1 - Standby
+    TimeLimit: 4h        
+  - Id: 11955
+    Title: I hope they can reconcile. 2
+    Targets:
+      - Mob: EP20_ICEWIND2
+        Count: 10  
+  - Id: 11956
+    Title: I hope they can reconcile. 2 - Standby
+    TimeLimit: 4h   
+  - Id: 17710
+    Title: Snake Maze Cleaning.
+    Targets:
+      - Id: 1
+        Count: 10
+        Location: jor_maze
+        MapMobTargets:
+          EP20_JORMUNGUARD1: true
+          EP20_JORMUNGUARD2: false
+          EP20_JORGAN_GUARDIAN: false
+      - Id: 2
+        Count: 10
+        Location: jor_maze
+        MapMobTargets:
+          EP20_JORMUNGUARD1: false
+          EP20_JORMUNGUARD2: true
+          EP20_JORGAN_GUARDIAN: false
+  - Id: 17711
+    Title: Snake Maze Cleaning. - Standby
+    TimeLimit: 4h             
+  - Id: 17718
+    Title: Taste of a Leisure Life.
+  - Id: 17717
+    Title: Taste of a Leisure Life. - Standby
+    TimeLimit: 4h          
+  - Id: 18234
+    Title: Iwin's Iwin's Worries.
+    Targets:
+      - Id: 1
+        Count: 100
+        Location: jor_root3
+        MapMobTargets:
+          EP20_MELIBE_ICESLUG: true
+          EP20_ICEBEAR: true
+          EP20_JORGAN_CLEANER: true
+          EP20_BOSS_CLANER: true
+  - Id: 18235
+    Title: Iwin's Iwin's Worries. - Standby
+    TimeLimit: 4h
+  - Id: 18236
+    Title: Voglinde's Extermination. 1
+    Targets:
+      - Id: 1
+        Count: 100
+        Location: jor_root1
+        MapMobTargets:
+          EP20_JORMUNGUARD1: true
+          EP20_JORMUNGUARD2: true
+          EP20_JORGAN_GUARDIAN: true
+          EP20_RGAN_WARLOCK: true
+          EP20_RGAN_HEALER: true
+  - Id: 18237
+    Title: Voglinde's Extermination. 1 - Standby
+    TimeLimit: 4h
+  - Id: 18238
+    Title: Voglinde's Extermination. 2
+    Targets:
+      - Id: 1
+        Count: 100
+        Location: jor_root2
+        MapMobTargets:
+          EP20_JORMUNGUARD1: true
+          EP20_JORMUNGUARD2: true
+          EP20_JORGAN_GUARDIAN: true
+          EP20_JORGAN_WARLOCK: true
+          EP20_JORGAN_HEALER: true
+  - Id: 18239
+    Title: Voglinde's Extermination. 2 - Standby
+    TimeLimit: 4h
+  - Id: 23111
+    Title: Pulling out the roots of the sect.
+    Targets:
+      - Mob: EP20_JORGAN_WARLOCK
+        Count: 15
+  - Id: 23110
+    Title: Pulling out the roots of the sect. - Standby
+    TimeLimit: 4h
+#Dummy quest for first time completition bonus of daily quests    
+  - Id: 320501
+    Title: Dummy Ep20 Quest 1
+  - Id: 320502
+    Title: Dummy Ep20 Quest 2
+  - Id: 320503
+    Title: Dummy Ep20 Quest 3
+  - Id: 320504
+    Title: Dummy Ep20 Quest 4  
+  - Id: 320505
+    Title: Dummy Ep20 Quest 5
+  - Id: 320506
+    Title: Dummy Ep20 Quest 6
+  - Id: 320507
+    Title: Dummy Ep20 Quest 7
+  - Id: 320508
+    Title: Dummy Ep20 Quest 8     
+  - Id: 320509
+    Title: Dummy Ep20 Quest 9
+  - Id: 320510
+    Title: Dummy Ep20 Quest 10
+  - Id: 320511
+    Title: Dummy Ep20 Quest 11    
