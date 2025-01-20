@@ -1,0 +1,1514 @@
+#Start of ep20 Mobs
+  - Id: 21965
+    AegisName: EP20_COPO
+    Name: Copo
+    Level: 220
+    Hp: 14711277
+    Sp: 0
+    BaseExp: 3787050
+    JobExp: 2650940
+    Attack: 6297
+    Attack2: 2417
+    Defense: 310
+    MagicDefense: 167
+    Resistance: 225
+    MagicResistance: 171
+    Str: 91
+    Agi: 75
+    Vit: 87
+    Int: 91
+    Dex: 88
+    Luk: 87
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Brute
+    Element: Neutral
+    ElementLevel: 1
+    WalkSpeed: 120
+    AttackDelay: 300
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+      - Item: Ep20_Copo_Head_F
+        Rate: 3200
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: Round_Feather
+        Rate: 4800
+      - Item: Bill_Of_Birds
+        Rate: 5000
+      - Item: Copo_Card
+        Rate: 1
+        StealProtected: true
+  - Id: 21966
+    AegisName: EP20_ICEWIND1
+    Name: Grey Icewind
+    Level: 220
+    Hp: 17344773
+    Sp: 0
+    BaseExp: 3787050
+    JobExp: 2650940
+    Attack: 7328
+    Attack2: 3257
+    Defense: 310
+    MagicDefense: 159
+    Resistance: 199
+    MagicResistance: 150
+    Str: 100
+    Agi: 100
+    Vit: 100
+    Int: 100
+    Dex: 100
+    Luk: 100
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Brute
+    Element: Dark
+    ElementLevel: 3
+    WalkSpeed: 160
+    AttackDelay: 300
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Huge_Feather_G
+        Rate: 3600
+      - Item: Etel_Dust
+        Rate: 30        
+      - Item: Soft_Feather
+        Rate: 4800
+      - Item: Bill_Of_Birds
+        Rate: 5000
+      - Item: Grey_Icewind_Card
+        Rate: 1
+        StealProtected: true
+  - Id: 21967
+    AegisName: EP20_ICEWIND2
+    Name: Icewind
+    Level: 244
+    Hp: 28012565
+    Sp: 0
+    BaseExp: 6046910
+    JobExp: 4230730
+    Attack: 7797
+    Attack2: 3257
+    Defense: 247
+    MagicDefense: 252
+    Resistance: 190
+    MagicResistance: 289
+    Str: 93
+    Agi: 101
+    Vit: 105
+    Int: 142
+    Dex: 126
+    Luk: 142
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Brute
+    Element: Wind
+    ElementLevel: 3
+    WalkSpeed: 140
+    AttackDelay: 300
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Huge_Feather_W
+        Rate: 3200
+      - Item: Etel_Dust
+        Rate: 30        
+      - Item: Soft_Feather
+        Rate: 4800
+      - Item: Bill_Of_Birds
+        Rate: 5000
+      - Item: Icewind_Card
+        Rate: 1
+        StealProtected: true
+  - Id: 21968
+    AegisName: EP20_EGGCOPO
+    Name: Copo Eggshell
+    Level: 222
+    Hp: 16739740
+    Sp: 0
+    BaseExp: 3946130
+    JobExp: 2762290
+    Attack: 9888
+    Attack2: 2027
+    Defense: 321
+    MagicDefense: 174
+    Resistance: 244
+    MagicResistance: 187
+    Str: 104
+    Agi: 85
+    Vit: 99
+    Int: 104
+    Dex: 100
+    Luk: 99
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Brute
+    Element: Wind
+    ElementLevel: 1
+    WalkSpeed: 125
+    AttackDelay: 280
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+      - Item: Ep20_Copo_Egg_Shell
+        Rate: 3200
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: Round_Feather
+        Rate: 4800
+      - Item: Bill_Of_Birds
+        Rate: 5000
+      - Item: Piece_Of_Egg_Shell
+        Rate: 5000        
+      - Item: Copo_Card
+        Rate: 1
+        StealProtected: true
+  - Id: 21969
+    AegisName: EP20_RABBIT_ICESLUG
+    Name: Snow Rabbit Slug
+    Level: 220
+    Hp: 17545012
+    Sp: 0
+    BaseExp: 3800410
+    JobExp: 2646990
+    Attack: 7505
+    Attack2: 1347
+    Defense: 336
+    MagicDefense: 128
+    Resistance: 238
+    MagicResistance: 112
+    Str: 104
+    Agi: 87
+    Vit: 82
+    Int: 67
+    Dex: 89
+    Luk: 87
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Formless
+    Element: Water
+    ElementLevel: 1
+    WalkSpeed: 125
+    AttackDelay: 160
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Fluor_Cell_Sweet
+        Rate: 3000
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: Cool_Liquid
+        Rate: 2100
+      - Item: Single_Cell
+        Rate: 5000
+      - Item: EP19_Unknown_Cell
+        Rate: 1100        
+      - Item: Rabbit_Iceslug_card
+        Rate: 1
+        StealProtected: true
+  - Id: 21970
+    AegisName: EP20_MELIBE_ICESLUG
+    Name: Melibe Slug   
+    Level: 240
+    Hp: 36665831
+    Sp: 0
+    BaseExp: 3800410
+    JobExp: 2646990
+    Attack: 9456
+    Attack2: 2687
+    Defense: 357
+    MagicDefense: 197
+    Resistance: 287
+    MagicResistance: 222
+    Str: 129
+    Agi: 106
+    Vit: 123
+    Int: 129
+    Dex: 160
+    Luk: 123
+    AttackRange: 7
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Fish
+    Element: Wind
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 330
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 02
+    Drops:
+      - Item: Ep20_Fluor_Cell_Sour
+        Rate: 3600
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: EP19_Unknown_Cell
+        Rate: 2500
+      - Item: Single_Cell
+        Rate: 5000
+      - Item: EP19_Unknown_Cell
+        Rate: 1100        
+      - Item: Melibe_Iceslug_Card
+        Rate: 1
+        StealProtected: true    
+  - Id: 21971
+    AegisName: EP20_ICEBEAR
+    Name: Bear Bug   
+    Level: 243
+    Hp: 25609178
+    Sp: 0
+    BaseExp: 5869120
+    JobExp: 4098130
+    Attack: 10156
+    Attack2: 2615
+    Defense: 255
+    MagicDefense: 134
+    Resistance: 185
+    MagicResistance: 148
+    Str: 145
+    Agi: 171
+    Vit: 95
+    Int: 122
+    Dex: 156
+    Luk: 149
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Insect
+    Element: Fire
+    ElementLevel: 2
+    WalkSpeed: 100
+    AttackDelay: 330
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Ice_Bearskin
+        Rate: 3600
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: Animal's_Skin
+        Rate: 2500
+      - Item: Sticky_Mucus
+        Rate: 5000
+      - Item: Slicky_Fluid
+        Rate: 1100        
+      - Item: Icebear_Card
+        Rate: 1
+        StealProtected: true  
+  - Id: 21972
+    AegisName: EP20_JORMUNGUARD1
+    Name: Jormungandr Guardian-P 
+    Level: 222
+    Hp: 18988110
+    Sp: 0
+    BaseExp: 4168840
+    JobExp: 2906300
+    Attack: 11220
+    Attack2: 2078
+    Defense: 341
+    MagicDefense: 130
+    Resistance: 245
+    MagicResistance: 115
+    Str: 108
+    Agi: 91
+    Vit: 86
+    Int: 69
+    Dex: 93
+    Luk: 90
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Demon
+    Element: Poison
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 330
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Mystic_Spl_Colt
+        Rate: 3000
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: Light_Granule
+        Rate: 1500
+      - Item: Fluorescent_Liquid
+        Rate: 5000
+      - Item: Transparent_Cloth
+        Rate: 5000        
+      - Item: Jormun_Guardian_Card
+        Rate: 1
+        StealProtected: true  
+  - Id: 21973
+    AegisName: EP20_JORMUNGUARD2
+    Name: Jormungandr Guardian-Y
+    Level: 222
+    Hp: 17847680
+    Sp: 0
+    BaseExp: 4126120
+    JobExp: 2886850
+    Attack: 6961
+    Attack2: 3459
+    Defense: 229
+    MagicDefense: 230
+    Resistance: 173
+    MagicResistance: 261
+    Str: 83
+    Agi: 90
+    Vit: 94
+    Int: 127
+    Dex: 112
+    Luk: 127
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Demon
+    Element: Ghost
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 190
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Mystic_Spl_Colt
+        Rate: 3000
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: Light_Granule
+        Rate: 1500
+      - Item: Fluorescent_Liquid
+        Rate: 5000
+      - Item: Transparent_Cloth
+        Rate: 5000        
+      - Item: Jormun_Guardian_Card
+        Rate: 1
+        StealProtected: true      
+  - Id: 21974
+    AegisName: EP20_FAKE_IWIN_SN
+    Name: Suspicious Iwin Trainee
+    Level: 220
+    Hp: 15888468
+    Sp: 0
+    BaseExp: 3787050
+    JobExp: 2650940
+    Attack: 6841
+    Attack2: 1259
+    Defense: 310
+    MagicDefense: 197
+    Resistance: 225
+    MagicResistance: 171
+    Str: 91
+    Agi: 75
+    Vit: 87
+    Int: 91
+    Dex: 88
+    Luk: 87
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Neutral
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 250
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+      - Item: Ep20_Broken_Trident
+        Rate: 4000
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: aegis_1000707 #Rgan's Low Grade Magic Core
+        Rate: 2500
+      - Item: Soft_Feather
+        Rate: 4800     
+      - Item: Fake_Iwin_S_Card
+        Rate: 1
+        StealProtected: true  
+  - Id: 21975
+    AegisName: EP20_FAKE_IWIN_SY
+    Name: Suspicious Iwin Private
+    Level: 221
+    Hp: 17936738
+    Sp: 0
+    BaseExp: 3866070
+    JobExp: 2706250
+    Attack: 6442
+    Attack2: 1659
+    Defense: 309
+    MagicDefense: 166
+    Resistance: 221
+    MagicResistance: 168
+    Str: 88
+    Agi: 72
+    Vit: 84
+    Int: 88
+    Dex: 85
+    Luk: 84
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 250
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+      - Item: Ep20_Broken_Trident
+        Rate: 3600
+      - Item: Ep20_Iwin_Private_C
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: aegis_1000707 #Rgan's Low Grade Magic Core
+        Rate: 1400
+      - Item: Round_Feather
+        Rate: 4800     
+      - Item: Fake_Iwin_S_Card
+        Rate: 1
+        StealProtected: true 
+  - Id: 21976
+    AegisName: EP20_FAKE_IWIN_SB
+    Name: Suspicious Private Iwin
+    Level: 223
+    Hp: 19746167
+    Sp: 0
+    BaseExp: 4027250
+    JobExp: 2819070
+    Attack: 6245
+    Attack2: 1659
+    Defense: 313
+    MagicDefense: 169
+    Resistance: 226
+    MagicResistance: 172
+    Str: 91
+    Agi: 75
+    Vit: 87
+    Int: 91
+    Dex: 88
+    Luk: 87
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Water
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 250
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+      - Item: Ep20_Broken_Trident
+        Rate: 3200
+      - Item: Ep20_Iwin_Priva_Co_C
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: aegis_1000707 #Rgan's Low Grade Magic Core
+        Rate: 1400
+      - Item: Round_Feather
+        Rate: 4800     
+      - Item: Fake_Iwin_S_Card
+        Rate: 1
+        StealProtected: true 
+  - Id: 21977
+    AegisName: EP20_FAKE_IWIN_SG
+    Name: Suspicious Corporal Iwin
+    Level: 224
+    Hp: 17621745
+    Sp: 0
+    BaseExp: 4109420
+    JobExp: 2876590
+    Attack: 7090
+    Attack2: 1659
+    Defense: 325
+    MagicDefense: 177
+    Resistance: 250
+    MagicResistance: 192
+    Str: 108
+    Agi: 88
+    Vit: 103
+    Int: 108
+    Dex: 104
+    Luk: 103
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Wind
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 250
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+      - Item: Ep20_Broken_Trident
+        Rate: 2800
+      - Item: Ep20_Iwin_Corporal_C
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: aegis_1000707 #Rgan's Low Grade Magic Core
+        Rate: 1400
+      - Item: Round_Feather
+        Rate: 4800     
+      - Item: Fake_Iwin_S_Card
+        Rate: 1
+        StealProtected: true 
+  - Id: 21978
+    AegisName: EP20_FAKE_IWIN_SR
+    Name: Suspicious Iwin Sergeant
+    Level: 225
+    Hp: 18073002
+    Sp: 0
+    BaseExp: 4211140
+    JobExp: 2947800
+    Attack: 7042
+    Attack2: 1659
+    Defense: 325
+    MagicDefense: 177
+    Resistance: 239
+    MagicResistance: 183
+    Str: 100
+    Agi: 82
+    Vit: 95
+    Int: 100
+    Dex: 86
+    Luk: 95
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Fire
+    ElementLevel: 2
+    WalkSpeed: 180
+    AttackDelay: 250
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+      - Item: Ep20_Broken_Trident
+        Rate: 2800
+      - Item: Ep20_Iwin_Sergeant_C
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: aegis_1000707 #Rgan's Low Grade Magic Core
+        Rate: 1400
+      - Item: Round_Feather
+        Rate: 4800     
+      - Item: Fake_Iwin_S_Card
+        Rate: 1
+        StealProtected: true 
+  - Id: 21979
+    AegisName: EP20_DEMIGOD_LASGAND   
+    Name: Ultimate Rasgand
+    Level: 215
+    Hp: 500000000
+    BaseExp: 0
+    JobExp: 0
+    Attack: 25067
+    Attack2: 10256
+    Defense: 527
+    MagicDefense: 286
+    Resistance: 424
+    MagicResistance: 321
+    Str: 112
+    Agi: 92
+    Vit: 107
+    Int: 112
+    Dex: 112
+    Luk: 107
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Undead
+    Element: Poison
+    ElementLevel: 4
+    WalkSpeed: 180
+    AttackDelay: 256
+    AttackMotion: 768
+    DamageMotion: 1000
+    DamageTaken: 1
+    Ai: 21
+    Class: Boss
+    Drop:
+  - Id: 21980
+    AegisName: EP20_BOSS_CLANER
+    Name: Sanctuary Cleaning Chief
+    Level: 250
+    Hp: 344751289
+    BaseExp: 6932920
+    JobExp: 4853040
+    MvpExp: 300000  
+    Attack: 19977
+    Attack2: 6984
+    Defense: 386
+    MagicDefense: 215
+    Resistance: 337
+    MagicResistance: 263
+    Str: 161
+    Agi: 133
+    Vit: 154
+    Int: 161
+    Dex: 156
+    Luk: 154
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Formless
+    Element: Poison
+    ElementLevel: 4
+    WalkSpeed: 250
+    AttackDelay: 256
+    AttackMotion: 768
+    DamageMotion: 1000
+    DamageTaken: 10
+    Ai: 21
+    Class: Boss
+    Modes:
+      Mvp: true
+    MvpDrops:
+      - Item: Magic_Card_Album
+        Rate: 4000
+      - Item: Old_Card_Album
+        Rate: 4000
+      - Item: Snow_F_Stone3
+        Rate: 2000
+    Drops: 
+      - Item: Ep20_Unknown_Canine
+        Rate: 7000
+      - Item: Ep20_Fluor_Cell_Sweet
+        Rate: 7000  
+      - Item: Ep20_Fluor_Cell_Salty
+        Rate: 3400
+      - Item: EP20_D_P_Ore
+        Rate: 8000
+      - Item: EP20_D_P_Ore
+        Rate: 5000        
+      - Item: EP20_D_P_Crystal
+        Rate: 2000          
+      - Item: Etel_Dust
+        Rate: 10000
+      - Item: Etel_Dust
+        Rate: 10000
+      - Item: Etel_Dust
+        Rate: 10000        
+      - Item: Rgan_Chief_Clean_Card
+        Rate: 1
+        StealProtected: true  
+  - Id: 21981
+    AegisName: MD_EP20_BOSS_LASGAND
+    Name: Ultimate Rasgand
+    Level: 215
+    Hp: 500000000
+    BaseExp: 6573120
+    JobExp: 4601190
+    MvpExp: 100000  
+    Attack: 25067
+    Attack2: 8256
+    Defense: 527
+    MagicDefense: 286
+    Resistance: 424
+    MagicResistance: 321
+    Str: 112
+    Agi: 92
+    Vit: 107
+    Int: 112
+    Dex: 112
+    Luk: 107
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Undead
+    Element: Poison
+    ElementLevel: 4
+    WalkSpeed: 130
+    AttackDelay: 256
+    AttackMotion: 768
+    DamageMotion: 1000
+    DamageTaken: 100
+    Ai: 21
+    Class: Boss
+    Modes:
+      Mvp: true
+    MvpDrops:
+      - Item: Magic_Card_Album
+        Rate: 4000
+      - Item: Old_Card_Album
+        Rate: 4000
+      - Item: EP20_D_P_Extract
+        Rate: 2000
+    Drops: 
+      - Item: EP20_D_P_Ore
+        Rate: 8000
+      - Item: EP20_D_P_Ore
+        Rate: 6000  
+      - Item: EP20_D_P_Crystal
+        Rate: 4000
+      - Item: EP20_D_P_Extract
+        Rate: 2000
+      - Item: Demigod_Lasgand_Card
+        Rate: 1
+        StealProtected: true  
+  - Id: 21982
+    AegisName: MD_EP20_FALLENANGEL
+    Name: Fallen Angel Slug
+    Level: 225
+    Hp: 206537987
+    BaseExp: 6932920
+    JobExp: 4853040
+    MvpExp: 300000  
+    Attack: 18360
+    Attack2: 6984
+    Defense: 359
+    MagicDefense: 196
+    Resistance: 283
+    MagicResistance: 217
+    Str: 115
+    Agi: 94
+    Vit: 110
+    Int: 115
+    Dex: 115
+    Luk: 110
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Angel
+    Element: Water
+    ElementLevel: 4
+    WalkSpeed: 150
+    AttackDelay: 300
+    AttackMotion: 768
+    DamageMotion: 1000
+    DamageTaken: 100
+    Ai: 21
+    Class: Boss
+    Modes:
+      Mvp: true
+    MvpDrops:
+      - Item: Magic_Card_Album
+        Rate: 4000
+      - Item: Old_Card_Album
+        Rate: 4000
+      - Item: EP20_D_P_Extract
+        Rate: 2000
+    Drops: 
+      - Item: Ep20_Angels_Tail
+        Rate: 7000
+      - Item: EP20_D_P_Ore
+        Rate: 8000
+      - Item: EP20_D_P_Ore
+        Rate: 6000     
+      - Item: EP20_D_P_Crystal
+        Rate: 4000           
+      - Item: EP20_D_P_Extract
+        Rate: 1000                
+      - Item: F_Angel_Iceslug_Card
+        Rate: 1
+        StealProtected: true  
+  - Id: 21983
+    AegisName: EP20_ANGEL_ICESLUG
+    Name: Angel Iceslug
+    Level: 222
+    Hp: 16734483
+    Sp: 0
+    BaseExp: 4015730
+    JobExp: 2811010
+    Attack: 7572
+    Attack2: 1689
+    Defense: 304
+    MagicDefense: 163
+    Resistance: 210
+    MagicResistance: 159
+    Str: 81
+    Agi: 66
+    Vit: 77
+    Int: 81
+    Dex: 78
+    Luk: 77
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Angel
+    Element: Holy
+    ElementLevel: 1
+    WalkSpeed: 180
+    AttackDelay: 250
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Fluor_Cell_Salty
+        Rate: 2800
+      - Item: Slicky_Fluid
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: Single_Cell
+        Rate: 1400
+      - Item: EP19_Unknown_Cell
+        Rate: 4800     
+      - Item: Angel_Iceslug_Card
+        Rate: 1
+        StealProtected: true 
+  - Id: 21984
+    AegisName: EP20_ICEEGG
+    Name: Icewind Egg
+    Level: 215
+    Hp: 6951869
+    BaseExp: 0
+    JobExp: 0
+    Attack: 6421
+    Attack2: 1901
+    Defense: 300
+    MagicDefense: 161
+    Resistance: 211
+    MagicResistance: 160    
+    Str: 83
+    Agi: 69
+    Vit: 79
+    Int: 83
+    Dex: 80
+    Luk: 79
+    AttackRange: 0
+    SkillRange: 0
+    ChaseRange: 0
+    Size: Small
+    Race: Formless
+    Element: Neutral
+    ElementLevel: 1
+    Ai: 06
+    Class: Normal
+    Drops:
+      - Item: Ep20_Copo_Egg_Shell
+        Rate: 3000
+      - Item: Cool_Liquid
+        Rate: 1000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: Solid_Shell
+        Rate: 5000
+      - Item: Piece_Of_Egg_Shell
+        Rate: 5000     
+      - Item: Icewind_Egg_Card
+        Rate: 1
+        StealProtected: true     
+  - Id: 21985
+    AegisName: EP20_RGAN_WARLOCK
+    Name: Superior Rgan Warlock
+    Level: 223
+    Hp: 20283828
+    Sp: 0
+    BaseExp: 4204810
+    JobExp: 2943370
+    Attack: 8280
+    Attack2: 2158
+    Defense: 305
+    MagicDefense: 164
+    Resistance: 212
+    MagicResistance: 161
+    Str: 82
+    Agi: 67
+    Vit: 78
+    Int: 82
+    Dex: 101
+    Luk: 78
+    AttackRange: 7
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Poison
+    ElementLevel: 1
+    WalkSpeed: 180
+    AttackDelay: 200
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Coral_Bangle
+        Rate: 2000
+      - Item: Ep20_Rgan_Core_F
+        Rate: 2500        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: EP19_Shell_Of_Rgan
+        Rate: 3000
+      - Item: EP19_Unknown_Cell
+        Rate: 2000     
+      - Item: S_Rgan_Warlock_Card
+        Rate: 1
+        StealProtected: true 
+  - Id: 21986
+    AegisName: EP20_RGAN_HEALER
+    Name: Superior Rgan Healer
+    Level: 223
+    Hp: 20291081
+    Sp: 0
+    BaseExp: 4169300
+    JobExp: 2918510
+    Attack: 8603
+    Attack2: 2771
+    Defense: 329
+    MagicDefense: 179
+    Resistance: 259
+    MagicResistance: 199
+    Str: 113
+    Agi: 93
+    Vit: 108
+    Int: 113
+    Dex: 109
+    Luk: 108
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Neutral
+    ElementLevel: 2
+    WalkSpeed: 180
+    AttackDelay: 200
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Coral_Bangle
+        Rate: 2000
+      - Item: Ep20_Rgan_Core_F
+        Rate: 2500        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: EP19_Shell_Of_Rgan
+        Rate: 3000
+      - Item: EP19_Unknown_Cell
+        Rate: 2000     
+      - Item: S_Rgan_Healer_Card
+        Rate: 1
+        StealProtected: true 
+  - Id: 21987
+    AegisName: EP20_JORGAN_WARLOCK
+    #Jormungand Church Warlock is also too lul
+    Name: Jor. Church Warlock
+    Level: 227
+    Hp: 22457464
+    Sp: 0
+    BaseExp: 4516240
+    JobExp: 3161370
+    Attack: 8977
+    Attack2: 2771
+    Defense: 347
+    MagicDefense: 191
+    Resistance: 290
+    MagicResistance: 224
+    Str: 134
+    Agi: 110
+    Vit: 128
+    Int: 134
+    Dex: 129
+    Luk: 128
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Wind
+    ElementLevel: 2
+    WalkSpeed: 180
+    AttackDelay: 200
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Shell_Hairpin
+        Rate: 2000
+      - Item: Ep20_Rgan_Core_F
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: EP19_Unknown_Cell
+        Rate: 2000     
+      - Item: E_Rgan_Warlock_Card
+        Rate: 1
+        StealProtected: true 
+  - Id: 21988
+    AegisName: EP20_JORGAN_HEALER
+    Name: Jormungand Church Bishop
+    Level: 230
+    Hp: 24183470
+    Sp: 0
+    BaseExp: 4829020
+    JobExp: 3380310
+    Attack: 10056
+    Attack2: 3314
+    Defense: 341
+    MagicDefense: 187
+    Resistance: 273
+    MagicResistance: 211
+    Str: 122
+    Agi: 100
+    Vit: 116
+    Int: 122
+    Dex: 118
+    Luk: 116
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Holy
+    ElementLevel: 2
+    WalkSpeed: 180
+    AttackDelay: 220
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Seaweed_Belt
+        Rate: 2000
+      - Item: Ep20_Rgan_Core_F
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: EP19_Unknown_Cell
+        Rate: 2000     
+      - Item: E_Rgan_Healer_Card
+        Rate: 1
+        StealProtected: true     
+  - Id: 21989
+    AegisName: EP20_JORGAN_GUARDIAN
+    #Jormungandr Sanctuary Guardian is too long
+    Name: Jormungand Guardian
+    Level: 225
+    Hp: 20506906
+    Sp: 0
+    BaseExp: 4392310
+    JobExp: 3059240
+    Attack: 11912
+    Attack2: 2689
+    Defense: 361
+    MagicDefense: 138
+    Resistance: 280
+    MagicResistance: 232
+    Str: 134
+    Agi: 112
+    Vit: 106
+    Int: 134
+    Dex: 115
+    Luk: 106
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Dark
+    ElementLevel: 2
+    WalkSpeed: 180
+    AttackDelay: 220
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Cataphract_Piece
+        Rate: 2000
+      - Item: Ep20_Rgan_Core_F
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: EP19_Unknown_Cell
+        Rate: 1500     
+      - Item: E_Rgan_Guardian_Card
+        Rate: 1
+        StealProtected: true   
+  - Id: 21990
+    AegisName: EP20_JORGAN_CLEANER
+    #Jormungandr Sanctuary Cleaner is too lul
+    Name: Jormungand Cleaner
+    Level: 244
+    Hp: 39954819
+    Sp: 0
+    BaseExp: 6254520
+    JobExp: 4352030
+    Attack: 11912
+    Attack2: 2999
+    Defense: 497
+    MagicDefense: 217
+    Resistance: 426
+    MagicResistance: 252
+    Str: 125
+    Agi: 121
+    Vit: 170
+    Int: 125
+    Dex: 151
+    Luk: 170
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Formless
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 220
+    AttackDelay: 190
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 21
+    Drops:
+      - Item: Ep20_Fluor_Cell_Sweet
+        Rate: 2400
+      - Item: Ep20_Fluor_Cell_Salty
+        Rate: 2400        
+      - Item: Etel_Dust
+        Rate: 30
+      - Item: EP19_Unknown_Cell
+        Rate: 1500     
+      - Item: E_Rgan_Cleaner_Card
+        Rate: 1
+        StealProtected: true       
+  - Id: 21995
+    AegisName: EP20_NPC_COCOPO
+    Name: Cocopo
+    Level: 220
+    Hp: 10
+    Sp: 0
+    BaseExp: 0
+    JobExp: 0
+    Attack: 2000
+    Attack2: 400
+    Defense: 0
+    MagicDefense: 0
+    Resistance: 0
+    MagicResistance: 0
+    Str: 82
+    Agi: 82
+    Vit: 82
+    Int: 82
+    Dex: 82
+    Luk: 82
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Brute
+    Element: Neutral
+    ElementLevel: 1
+    WalkSpeed: 125
+    AttackDelay: 280
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+  - Id: 21996
+    AegisName: EP20_SNOW_ANGEL
+    Name: Snowstorm Angel
+    Level: 235
+    Hp: 207606917
+    BaseExp: 7244830
+    JobExp: 5071380
+    MvpExp: 300000  
+    Attack: 14193
+    Attack2: 4000
+    Defense: 329
+    MagicDefense: 179
+    Resistance: 244
+    MagicResistance: 187
+    Str: 101
+    Agi: 83
+    Vit: 97
+    Int: 101
+    Dex: 98
+    Luk: 97
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Angel
+    Element: Holy
+    ElementLevel: 4
+    WalkSpeed: 250
+    AttackDelay: 256
+    AttackMotion: 768
+    DamageMotion: 1000
+    DamageTaken: 10
+    Ai: 21
+    Class: Boss
+    Modes:
+      Mvp: true
+    MvpDrops:
+      - Item: Magic_Card_Album
+        Rate: 4000 
+      - Item: Old_Card_Album
+        Rate: 4000
+      - Item: Snow_F_Stone3
+        Rate: 2000
+    Drops: 
+      - Item: Ep20_Twinkling_Snow
+        Rate: 7000
+      - Item: Slicky_Fluid
+        Rate: 3400  
+      - Item: Ep20_Fluor_Cell_Salty
+        Rate: 7000
+      - Item: EP20_D_P_Ore
+        Rate: 8000
+      - Item: EP20_D_P_Ore
+        Rate: 5000        
+      - Item: EP20_D_P_Crystal
+        Rate: 2000          
+      - Item: Etel_Dust
+        Rate: 10000
+      - Item: Etel_Dust
+        Rate: 10000
+      - Item: Etel_Dust
+        Rate: 10000        
+      - Item: Snow_Angel_Card
+        Rate: 1
+        StealProtected: true  
+  - Id: 21997
+    AegisName: G_EP20_JORMUNGUARD1
+    Name: Jormungandr Guardian-P 
+    Level: 222
+    Hp: 18988110
+    Sp: 0
+    BaseExp: 4168840
+    JobExp: 2906300
+    Attack: 11220
+    Attack2: 2078
+    Defense: 341
+    MagicDefense: 130
+    Resistance: 245
+    MagicResistance: 115
+    Str: 108
+    Agi: 91
+    Vit: 86
+    Int: 69
+    Dex: 93
+    Luk: 90
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Demon
+    Element: Poison
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 330
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 01
+    Drops:
+  - Id: 21998
+    AegisName: G_EP20_JORMUNGUARD2
+    Name: Jormungandr Guardian-Y
+    Level: 222
+    Hp: 17847680
+    Sp: 0
+    BaseExp: 4126120
+    JobExp: 2886850
+    Attack: 6961
+    Attack2: 3459
+    Defense: 229
+    MagicDefense: 230
+    Resistance: 173
+    MagicResistance: 261
+    Str: 83
+    Agi: 90
+    Vit: 94
+    Int: 127
+    Dex: 112
+    Luk: 127
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Demon
+    Element: Ghost
+    ElementLevel: 2
+    WalkSpeed: 140
+    AttackDelay: 190
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 01
+    Drops:
+  - Id: 22004
+    AegisName: EP20_MD_BOX1
+    Name: Suspicious Crystal
+    Level: 220
+    Hp: 1
+    Str: 0
+    Agi: 0
+    Vit: 0
+    Int: 0
+    Dex: 0
+    Luk: 0
+    SkillRange: 0
+    ChaseRange: 0
+    Size: Small
+    Race: Formless
+    Element: Neutral
+    ElementLevel: 1
+    Ai: 06
+    Class: Normal
+    Drops:
+      - Item: EP19_D_P_Ore
+        Rate: 2000
+      - Item: EP19_N_P_Ore
+        Rate: 2000
+      - Item: EP20_D_P_Ore
+        Rate: 3000
+      - Item: EP20_D_P_Crystal
+        Rate: 2000        
+      - Item: EP19_D_P_Crystal
+        Rate: 1500
+      - Item: EP19_N_P_Crystal
+        Rate: 1500
+      - Item: EP20_D_Scale
+        Rate: 100
+        StealProtected: true 
+  - Id: 22005
+    AegisName: EP20_MD_BOX2
+    Name: Suspicious Crystal
+    Level: 220
+    Hp: 1
+    Str: 0
+    Agi: 0
+    Vit: 0
+    Int: 0
+    Dex: 0
+    Luk: 0
+    SkillRange: 0
+    ChaseRange: 0
+    Size: Small
+    Race: Formless
+    Element: Neutral
+    ElementLevel: 1
+    Ai: 06
+    Class: Normal
+    Drops:
+      - Item: EP19_D_P_Ore
+        Rate: 4000
+      - Item: EP19_N_P_Ore
+        Rate: 4000
+      - Item: EP20_D_P_Ore
+        Rate: 6000
+      - Item: EP20_D_P_Crystal
+        Rate: 4000        
+      - Item: EP19_D_P_Crystal
+        Rate: 3000
+      - Item: EP19_N_P_Crystal
+        Rate: 3000
+      - Item: EP20_D_P_Extract
+        Rate: 3000        
+      - Item: EP20_D_Scale
+        Rate: 200
+        StealProtected: true
+  - Id: 23060
+    AegisName: EP20_ARMOERDCOPO
+    Name: Sturdy Copo
+    Level: 243
+    Hp: 34890060
+    Sp: 0
+    BaseExp: 5932940
+    JobExp: 4153050
+    Attack: 7613
+    Attack2: 2175
+    Defense: 342
+    MagicDefense: 187
+    Resistance: 258
+    MagicResistance: 199
+    Str: 109
+    Agi: 90
+    Vit: 104
+    Int: 109
+    Dex: 106
+    Luk: 104
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Brute
+    Element: Water
+    ElementLevel: 1
+    WalkSpeed: 120
+    AttackDelay: 240
+    AttackMotion: 1008
+    ClientAttackMotion: 504
+    DamageMotion: 360
+    Ai: 03
+    Drops:
+      - Item: Ep20_Copo_Head_F
+        Rate: 2500
+      - Item: Ep20_Copo_Egg_Shell
+        Rate: 3000        
+      - Item: Etel_Dust
+        Rate: 400
+      - Item: Piece_Of_Egg_Shell
+        Rate: 5000
+      - Item: Bill_Of_Birds
+        Rate: 5000
+      - Item: Copo_Card
+        Rate: 1
+        StealProtected: true
