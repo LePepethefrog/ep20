@@ -3,6 +3,11 @@
 ## Daily quest
 The Daily quest NPC consists of 11 Daily quest, officially kro has 13 daily quests, 2 which requires npc, finding a spy, and another thats talk with a random npc, 2 quest dont give item rewards so ommited both NPC quest due to requiring story NPCs and move the reward of the spy one to the grey feather collecting so the amount of rewards remains the same  
 
+## About items
+Armors and their enchants seem to be already on live server so I assumed they were coded when you mistakenly coded them as part of ep19, however added the armor combos with themselves and with the weapons in item_combos.yml just in case
+
+Some ETC items (probably the enchant materials) are also on the live servers but I honestly cba to check them 1 by 1 
+
 ## About instances
 Sticky sea is pretty much 1:1 to kro
 
