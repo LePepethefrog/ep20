@@ -1,0 +1,54 @@
+//Ep 20 Warps 
+//All have been tested 95% have coordinates from youtube videos 5% are following the logic of other warps and may not be 1:1 with kRO
+
+//Fields 
+
+jor_back3,161,365,0	warp2	#wjb34	2,2,jor_back4,273,19
+jor_back4,277,16,0	warp2	#wjb43	2,2,jor_back3,160,358
+jor_back4,11,376,0	warp2	#wjb45	2,2,jor_back5,340,20
+jor_back5,338,8,0	warp2	#wjb54	2,2,jor_back4,15,373
+jor_back5,7,240,0	warp2	#wjb56	2,2,jor_back6,379,255
+jor_back6,385,255,0	warp2	#wjb65	2,2,jor_back5,20,240
+jor_back6,29,145,0	warp2	#wjb6jr3	2,2,jor_root3,367,129
+jor_root3,373,129,0	warp2	#wjjr3b6	2,2,jor_back6,37,146
+
+//Jor Root & Jor Sanctuary
+
+jor_root1,59,295,0	warp2	#wjr12	2,2,jor_root2,25,17
+jor_root2,25,7,0	warp2	#wjr21	2,2,jor_root1,59,289
+jor_root2,24,291,0	warp2	#wjr2js	2,2,jor_sanct,150,47
+jor_sanct,150,42,0	warp2	#wjsjr2	2,2,jor_root2,24,285
+jor_sanct,28,289,0	warp2	#wjsjm	2,2,jor_maze,206,16
+
+//Jor Maze (Wandering Star + https://i.imgur.com/m5vMrc5.png) + jor_twice
+
+jor_maze,206,12,0	warp2	#wjmjs	2,2,jor_sanct,28,286
+jor_maze,198,57,0	warp2	#wjmjm1	2,2,jor_maze,268,116
+jor_maze,264,188,0	warp2	#wjmjm2	2,2,jor_maze,85,256
+jor_maze,46,275,0	warp2	#wjmjm3	2,2,jor_maze,16,16
+jor_maze,88,28,0	warp2	#wjmjm4	2,2,jor_maze,151,281
+jor_maze,182,206,0	warp2	#wjmjm5	2,2,jor_maze,192,153
+jor_maze,164,138,0	warp2	#wjmjm6	2,2,jor_maze,49,162
+jor_maze,34,189,0	warp2	#wjmjm7	2,2,jor_maze,104,156
+jor_maze,104,207,0	warp2	#wjmjm8	2,2,jor_maze,148,28
+jor_maze,148,24,0	warp2	#wjmjm9	2,2,jor_maze,104,203
+jor_maze,104,152,0	warp2	#wjmjm10	2,2,jor_maze,34,185
+jor_maze,53,162,0	warp2	#wjmjm11	2,2,jor_maze,168,138
+jor_maze,192,157,0	warp2	#wjmjm12	2,2,jor_maze,182,210
+jor_maze,150,285,0	warp2	#wjmjm13	2,2,jor_maze,88,32
+jor_maze,16,12,0	warp2	#wjmjm14	2,2,jor_maze,46,271
+jor_maze,89,256,0	warp2	#wjmjm15	2,2,jor_maze,268,187
+jor_maze,268,112,0	warp2	#wjmjm16	2,2,jor_maze,198,54
+jor_maze,240,156,0	warp2	#wjmjm17	2,2,jor_maze,218,285
+jor_maze,192,102,0	warp2	#wjmjm18	2,2,jor_maze,50,120
+jor_maze,50,125,0	warp2	#wjmjm19	2,2,jor_maze,192,106
+jor_maze,285,246,0	warp2	#wjmjm20	2,2,jor_maze,14,279
+jor_maze,14,283,0	warp2	#wjmjm21	2,2,jor_maze,281,246 
+jor_maze,218,289,0	warp2	#wjmjm22	2,2,jor_maze,244,156
+jor_maze,260,50,0	warp2	#wjmjm23	2,2,jor_maze,136,180
+jor_maze,136,176,0	warp2	#wjmjm24	2,2,jor_maze,260,46
+jor_maze,140,79,0	warp2	#wjmjt	2,2,jor_twice,45,58
+jor_twice,41,54,0	warp2	#wjtjm	2,2,jor_maze,140,75
+
+
+
