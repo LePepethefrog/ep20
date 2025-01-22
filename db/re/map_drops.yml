@@ -1,0 +1,22 @@
+  - Map: 1@twbs
+    SpecificDrops:
+      - Monster: MD_EP20_BOSS_LASGAND
+        Drops:
+          - Index: 0
+            Item: D_Glacier_Armor
+            Rate: 1000
+          - Index: 1
+            Item: D_Glacier_Boots
+            Rate: 1000
+          - Index: 2
+            Item: D_Glacier_Manteau
+            Rate: 1000
+          - Index: 3
+            Item: D_Glacier_Robe
+            Rate: 1000    
+          - Index: 4
+            Item: D_Glacier_Shoes
+            Rate: 1000
+          - Index: 5
+            Item: D_Glacier_Muffler
+            Rate: 1000              
