@@ -1,0 +1,53 @@
+-	script	Ep20 Enchant	-1,{
+	mes "What do you wish to enchant?";
+	next;
+	switch(select("Glacier Armor:Glacier Garment:Glacier Footwear:Glacier Shield:Glacier Acc(R):Glacier Acc(L):D. Glacier Armor:D. Glacier Garment:D. Glacier Footwear:Buy Glacier Equipment:Nothing")) {
+		case 1:
+			close2;
+			item_enchant 89;
+			break;
+		case 2:
+			close2;
+			item_enchant 90;
+			break;
+		case 3:
+			close2;
+			item_enchant 91;
+			break;
+		case 4:
+			close2;
+			item_enchant 92;
+			break;	
+		case 5:
+			close2;
+			item_enchant 93;
+			break;
+		case 6:
+			close2;
+			item_enchant 94;
+			break;
+		case 7:
+			close2;
+			item_enchant 95;
+			break;
+		case 8:
+			close2;	
+			item_enchant 96;
+			break;
+		case 9:
+			close2;	
+			item_enchant 97;
+			break;
+		case 10:
+			close2;
+			callshop "barter_ep20_glacier";
+			break;			
+		case 11:
+			close;	
+		}
+}
+
+
+// Duplicates
+//============================================================
+prontera,160,180,4	duplicate(Ep20 Enchant)	Ep20 Enchanter#prt	10461

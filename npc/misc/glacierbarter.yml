@@ -1,0 +1,98 @@
+###########################################################################
+#
+# Barter Settings
+#
+###########################################################################
+#  - Name               NPC name.
+#    Map                Map name. (Default: not on a map)
+#    X                  Map x coordinate. (Default: 0)
+#    Y                  Map y coordinate. (Default: 0)
+#    Direction          Direction the NPC is looking. (Default: North)
+#    Sprite             Sprite name of the NPC. (Default: FakeNpc)
+#    Items:             List of sold items.
+#      - Index          Index of the item inside the shop. (0-...)
+#                       Maximum index depends on client.
+#        Item           Aegis name of the item.
+#        Stock          Amount of item in stock. 0 means unlimited. (Default: 0)
+#        Zeny           Cost of them item in Zeny. (Default: 0)
+#        RequiredItems: List of required items (Optional)
+#          - Index      Index of the required item. (0-4)
+#            Item       Aegis name of required item.
+#            Amount     Amount of required item. (Default: 1)
+#            Refine     Refine level of required item. (Default: 0)
+###########################################################################
+
+Header:
+  Type: BARTER_DB
+  Version: 1
+
+Body:
+  - Name: barter_ep20_glacier
+    Items:
+      - Index: 0
+        Item: Glacier_Armor
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100
+      - Index: 1
+        Item: Glacier_Robe
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100		
+      - Index: 2
+        Item: Glacier_Manteau
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100
+      - Index: 3
+        Item: Glacier_Muffler
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100			
+      - Index: 4
+        Item: Glacier_Boots
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100
+      - Index: 5
+        Item: Glacier_Shoes
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100		
+      - Index: 6
+        Item: Glacier_Ring
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100
+      - Index: 7
+        Item: Glacier_Pendant
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100					
+      - Index: 8
+        Item: Glacier_Earring
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100					
+      - Index: 9
+        Item: Glacier_Necklace
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100				
+      - Index: 10
+        Item: Glacier_Guard
+        RequiredItems:
+          - Index: 0
+            Item: Ep20_Cat_Whiskers
+            Amount: 100			
+			
