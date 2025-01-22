@@ -900,11 +900,11 @@ OnMyMobDead:
 }
 1@twbs,94,89,4	script	#RasgandCat	10537,{
 	disable_items;
-	if (checkquest(88888,HUNTING) == 2) {
+	if (checkquest(12591,HUNTING) == 2) {
 		cutin "ep20_nyar02.png", 1;
 		mes "[Nyar]";
 		mes "Why~";
-		erasequest 88888;
+		erasequest 12591;
 		next;
 		mes "^0000FFAre you asking me to hold out my hand? It looks like you're going to hand me something.";
 		//Only the cat whiskers are guaranteed
