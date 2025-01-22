@@ -1,0 +1,226 @@
+//Ep20 Daily Quest, NPC Gives and Turns in 11 quest
+//Lots of debugging dialogue because Im not very good at scripting NPC much less the ones related to questing
+//Dummy quests to give 1 time rewards to give items equivalent to completing the ep20 main quest (IDs 320501-320511)
+//The exp is from Ziu ep20 quest video since he doesnt play at a pc cafe nor uses battle manuals
+prontera,158,158,4	script	DailyQuestGiver	10467,{
+	// Quest IDs and their cooldown IDs
+	setarray .quest_ids[0], 8845, 8858, 11951, 11953, 11955, 17710, 17718, 18234, 18236, 18238, 23111;
+	setarray .complete_ids[0], 8844, 8856, 11952, 11954, 11956, 17711, 17717, 18235, 18237, 18239, 23110;
+
+	// Item requirements for specific quests
+	setarray .items_8845[0], 1001244, 20;
+	setarray .items_8858[0], 1001231, 10, 1001232, 10, 1001233, 10;
+	setarray .items_17718[0], 1001154, 10;
+	// Experience rewards: base_exp, job_exp
+	setarray .exp_rewards[0], 
+		34152989, 5567916,    // 8845
+		72868376, 50938732,   // 8858
+		34152989, 5567916,    // 11951
+		10019384, 7013933,    // 11953
+		15721965, 10999898,   // 11955
+		21566896, 15062189,   // 17710
+		34152989, 5567916,    // 17718
+		79389440, 55414968,   // 18234
+		54769584, 38257100,   // 18236
+		57284576, 40024580,   // 18238
+		18968208, 13277754;   // 23111
+
+	// Daily Quest reward amount
+	set .repeat_reward, 3;
+
+	// Greet player
+	mes "Hello! I can give you your EP20 daily quests. What would you like to do today?";
+	switch(select("Accept Quest.:Turn in Completed Quest.:Leave.")) {
+	case 1:
+		// Accept Quest
+		mes "Checking available quests...";
+		for (.@i = 0; .@i < getarraysize(.quest_ids); .@i++) {
+			.@quest_id = .quest_ids[.@i];
+			.@complete_id = .complete_ids[.@i];
+
+			// Check if the quest cooldown is active
+			.@cooldown_status = checkquest(.@complete_id, PLAYTIME);
+
+		if (.@cooldown_status == 2) {
+			// Cooldown expired, reset the completed quest
+			erasequest(.@complete_id);
+			mes "The cooldown for quest ID " + .@quest_id + " has expired. You can now take it again.";
+		}
+
+		if (.@cooldown_status == 2 || .@cooldown_status == -1) {
+			// Cooldown expired or quest never completed before
+			if (checkquest(.@quest_id) == -1) {
+				// Quest is not active, assign it
+				setquest(.@quest_id);
+				mes "Quest ID " + .@quest_id + " has been assigned to you.";
+			} else {
+				mes "Quest ID " + .@quest_id + " is already active.";
+			}
+
+		} else {
+			// Cooldown is still active
+			mes "Quest ID " + .@quest_id + " is still on cooldown.";
+			}
+		}
+		close;
+		break;
+
+	case 2:
+		// Turn in Completed Quest
+		mes "Checking for completed quests...";
+		.@completed_quests = 0;
+
+		for (.@i = 0; .@i < getarraysize(.quest_ids); .@i++) {
+			.@quest_id = .quest_ids[.@i];
+			.@complete_id = .complete_ids[.@i];
+			.@bonus_quest_id = 320501 + .@i; // First-time reward quest ID
+
+			// Check if the quest is completed (status 1)
+			if (checkquest(.@quest_id) == 1) {
+				// Process quest turn-in based on specific quest requirements
+				.@quest_completed = 0; // Flag to track if this quest is turned in successfully
+				switch (.@quest_id) {
+					case 8845:
+						if (countitem(.items_8845[0]) >= .items_8845[1]) {
+							delitem .items_8845[0], .items_8845[1];
+							mes "Thank you for completing quest 8845!";
+							.@quest_completed = 1;
+						} else {
+							mes "You need more items to complete quest 8845.";
+						}
+						break;
+
+					case 8858:
+						// Check for items and HUNTING status
+						if (countitem(.items_8858[0]) >= .items_8858[1] &&
+							countitem(.items_8858[2]) >= .items_8858[3] &&
+							countitem(.items_8858[4]) >= .items_8858[5]) {
+							if (checkquest(.@quest_id, HUNTING) == 2) {
+								delitem .items_8858[0], .items_8858[1];
+								delitem .items_8858[2], .items_8858[3];
+								delitem .items_8858[4], .items_8858[5];
+								mes "Thank you for completing quest 8858!";
+								.@quest_completed = 1;
+							} else {
+								mes "You have not completed the hunting part of quest 8858.";
+							}
+						} else {
+							mes "You need more items to complete quest 8858.";
+						}
+						break;
+
+					case 17718:
+						if (countitem(.items_17718[0]) >= .items_17718[1]) {
+							delitem .items_17718[0], .items_17718[1];
+							mes "Thank you for completing quest 17718!";
+							.@quest_completed = 1;
+						} else {
+							mes "You need more items to complete quest 17718.";
+						}
+						break;
+
+					default:
+						// General handling for other quests (e.g., hunting quests)
+						if (checkquest(.@quest_id, HUNTING) == 2) {
+							mes "Thank you for completing quest ID " + .@quest_id + "!";
+							.@quest_completed = 1;
+						} else {
+							mes "You have not completed the hunting part of quest ID " + .@quest_id + ".";
+						}
+				}
+
+				// Mark the quest as completed and set the cooldown if successfully turned in
+				if (.@quest_completed) {
+					erasequest(.@quest_id);
+					setquest(.@complete_id);
+					.@completed_quests++;
+					
+					// Exp
+					.@base_exp = .exp_rewards[.@i * 2];
+					.@job_exp = .exp_rewards[.@i * 2 + 1];
+					getexp .@base_exp, .@job_exp;
+					//mes "You have received " + .@base_exp + " base experience and " + .@job_exp + " job experience!";
+
+					// Check and complete the first-time bonus quest
+					if (checkquest(.@bonus_quest_id) == -1) {
+						setquest(.@bonus_quest_id);
+						completequest(.@bonus_quest_id);
+						getitem(1001217, 20); // First-time bonus reward
+						//mes "You have received a one-time bonus reward for completing quest ID " + .@quest_id + "!";
+					}
+				}
+			} else {
+				mes "Quest ID " + .@quest_id + " is not ready for turn-in.";
+			}
+		}
+
+		// Provide rewards for completed quests
+		if (.@completed_quests > 0) {
+			getitem 1001217, .repeat_reward * .@completed_quests;
+			mes "You received " + (.repeat_reward * .@completed_quests) + " items for completing your quests!";
+		} else {
+			mes "No quests are ready to turn in.";
+		}
+		close;
+		break;
+
+		case 3:
+			// Leave
+			mes "Goodbye!";
+			close;
+	}
+}
+
+//Daily Quest Snakeberry collection, text is official kRO translated with google lens 
+//coordinates a few are official from streams, the rest are aproximated based on minimap
+
+jor_root2,45,257,4	script	Hardened Spot#EP20DQ1	10042,{
+	if (checkweight(1001154, 1) == 0) {
+		mes "- You are carrying too many items to proceed with the quest. -";
+		close;
+	}
+	if (isbegin_quest(17718) == 1) {
+		if (rand(0, 1) == 0) {
+			mes "[" + strcharinfo(0) + "]";
+			mes "I got a Snakeberry!";
+			getitem 1001154, 1;
+		} else {
+			message strcharinfo(0),strcharinfo(0) + ": There are no Snakeberries here.";
+			disablenpc();
+			initnpctimer;
+			end;
+		}
+		close2;
+		disablenpc();
+		initnpctimer;
+	}
+	end;
+
+OnTimer60000:
+	enablenpc();
+	stopnpctimer;
+	end;
+}
+
+//Duplicates 
+
+jor_root2,169,116,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ2	10042
+jor_root2,83,235,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ3	10042
+jor_root2,214,226,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ4	10042
+jor_root2,237,287,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ5	10042
+jor_root2,116,212,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ6	10042
+jor_root2,77,191,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ7	10042
+jor_root2,66,179,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ8	10042
+jor_root2,144,184,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ9	10042
+jor_root2,201,193,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ10	10042
+jor_root2,166,178,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ11	10042
+jor_root2,53,167,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ12	10042
+jor_root2,47,110,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ13	10042
+jor_root2,47,59,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ14	10042
+jor_root2,82,50,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ15	10042
+jor_root2,136,82,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ16	10042
+jor_root2,234,97,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ17	10042
+jor_root2,78,92,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ18	10042
+jor_root2,108,106,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ19	10042
+jor_root2,207,120,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ20	10042
+jor_root2,113,152,4	duplicate(Hardened Spot#EP20DQ1)	Hardened Spot#EP20DQ21	10042
