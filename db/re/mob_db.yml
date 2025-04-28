@@ -5,8 +5,8 @@
     Level: 220
     Hp: 14711277
     Sp: 0
-    BaseExp: 3787050
-    JobExp: 2650940
+    BaseExp: 378705
+    JobExp: 265094
     Attack: 6297
     Attack2: 2417
     Defense: 310
@@ -50,8 +50,8 @@
     Level: 220
     Hp: 17344773
     Sp: 0
-    BaseExp: 3787050
-    JobExp: 2650940
+    BaseExp: 385384
+    JobExp: 269769
     Attack: 7328
     Attack2: 3257
     Defense: 310
@@ -95,8 +95,8 @@
     Level: 244
     Hp: 28012565
     Sp: 0
-    BaseExp: 6046910
-    JobExp: 4230730
+    BaseExp: 604691
+    JobExp: 423073
     Attack: 7797
     Attack2: 3257
     Defense: 247
@@ -140,8 +140,8 @@
     Level: 222
     Hp: 16739740
     Sp: 0
-    BaseExp: 3946130
-    JobExp: 2762290
+    BaseExp: 394613
+    JobExp: 276229
     Attack: 9888
     Attack2: 2027
     Defense: 321
@@ -187,8 +187,8 @@
     Level: 220
     Hp: 17545012
     Sp: 0
-    BaseExp: 3800410
-    JobExp: 2646990
+    BaseExp: 380041
+    JobExp: 264699
     Attack: 7505
     Attack2: 1347
     Defense: 336
@@ -234,8 +234,8 @@
     Level: 240
     Hp: 36665831
     Sp: 0
-    BaseExp: 3800410
-    JobExp: 2646990
+    BaseExp: 380041
+    JobExp: 264699
     Attack: 9456
     Attack2: 2687
     Defense: 357
@@ -281,8 +281,8 @@
     Level: 243
     Hp: 25609178
     Sp: 0
-    BaseExp: 5869120
-    JobExp: 4098130
+    BaseExp: 586912
+    JobExp: 409813
     Attack: 10156
     Attack2: 2615
     Defense: 255
@@ -328,8 +328,8 @@
     Level: 222
     Hp: 18988110
     Sp: 0
-    BaseExp: 4168840
-    JobExp: 2906300
+    BaseExp: 416884
+    JobExp: 290630
     Attack: 11220
     Attack2: 2078
     Defense: 341
@@ -375,8 +375,8 @@
     Level: 222
     Hp: 17847680
     Sp: 0
-    BaseExp: 4126120
-    JobExp: 2886850
+    BaseExp: 412612
+    JobExp: 288685
     Attack: 6961
     Attack2: 3459
     Defense: 229
@@ -422,8 +422,8 @@
     Level: 220
     Hp: 15888468
     Sp: 0
-    BaseExp: 3787050
-    JobExp: 2650940
+    BaseExp: 378705
+    JobExp: 265094
     Attack: 6841
     Attack2: 1259
     Defense: 310
@@ -467,8 +467,8 @@
     Level: 221
     Hp: 17936738
     Sp: 0
-    BaseExp: 3866070
-    JobExp: 2706250
+    BaseExp: 386607
+    JobExp: 270625
     Attack: 6442
     Attack2: 1659
     Defense: 309
@@ -514,8 +514,8 @@
     Level: 223
     Hp: 19746167
     Sp: 0
-    BaseExp: 4027250
-    JobExp: 2819070
+    BaseExp: 402725
+    JobExp: 281907
     Attack: 6245
     Attack2: 1659
     Defense: 313
@@ -561,8 +561,8 @@
     Level: 224
     Hp: 17621745
     Sp: 0
-    BaseExp: 4109420
-    JobExp: 2876590
+    BaseExp: 410942
+    JobExp: 287659
     Attack: 7090
     Attack2: 1659
     Defense: 325
@@ -608,8 +608,8 @@
     Level: 225
     Hp: 18073002
     Sp: 0
-    BaseExp: 4211140
-    JobExp: 2947800
+    BaseExp: 421114
+    JobExp: 294780
     Attack: 7042
     Attack2: 1659
     Defense: 325
@@ -688,8 +688,8 @@
     Name: Sanctuary Cleaning Chief
     Level: 250
     Hp: 344751289
-    BaseExp: 6932920
-    JobExp: 4853040
+    BaseExp: 693292
+    JobExp: 485304
     MvpExp: 300000  
     Attack: 19977
     Attack2: 6984
@@ -753,8 +753,8 @@
     Name: Ultimate Rasgand
     Level: 215
     Hp: 500000000
-    BaseExp: 6573120
-    JobExp: 4601190
+    BaseExp: 657312
+    JobExp: 460119
     MvpExp: 100000  
     Attack: 25067
     Attack2: 9980
@@ -808,8 +808,8 @@
     Name: Fallen Angel Slug
     Level: 225
     Hp: 206537987
-    BaseExp: 6932920
-    JobExp: 4853040
+    BaseExp: 693292
+    JobExp: 485304
     MvpExp: 300000  
     Attack: 18360
     Attack2: 6984
@@ -866,8 +866,8 @@
     Level: 222
     Hp: 16734483
     Sp: 0
-    BaseExp: 4015730
-    JobExp: 2811010
+    BaseExp: 401573
+    JobExp: 281101
     Attack: 7572
     Attack2: 1689
     Defense: 304
@@ -955,8 +955,8 @@
     Level: 223
     Hp: 20283828
     Sp: 0
-    BaseExp: 4204810
-    JobExp: 2943370
+    BaseExp: 420481
+    JobExp: 294337
     Attack: 8280
     Attack2: 2158
     Defense: 305
@@ -1002,8 +1002,8 @@
     Level: 223
     Hp: 20291081
     Sp: 0
-    BaseExp: 4169300
-    JobExp: 2918510
+    BaseExp: 416930
+    JobExp: 291851
     Attack: 8603
     Attack2: 2771
     Defense: 329
@@ -1050,8 +1050,8 @@
     Level: 227
     Hp: 22457464
     Sp: 0
-    BaseExp: 4516240
-    JobExp: 3161370
+    BaseExp: 451624
+    JobExp: 316137
     Attack: 8977
     Attack2: 2771
     Defense: 347
@@ -1095,8 +1095,8 @@
     Level: 230
     Hp: 24183470
     Sp: 0
-    BaseExp: 4829020
-    JobExp: 3380310
+    BaseExp: 482902
+    JobExp: 338031
     Attack: 10056
     Attack2: 3314
     Defense: 341
@@ -1141,8 +1141,8 @@
     Level: 225
     Hp: 20506906
     Sp: 0
-    BaseExp: 4392310
-    JobExp: 3059240
+    BaseExp: 439231
+    JobExp: 305924
     Attack: 11912
     Attack2: 2689
     Defense: 361
@@ -1187,8 +1187,8 @@
     Level: 244
     Hp: 39954819
     Sp: 0
-    BaseExp: 6254520
-    JobExp: 4352030
+    BaseExp: 625452
+    JobExp: 435203
     Attack: 11912
     Attack2: 2999
     Defense: 497
@@ -1331,8 +1331,8 @@
     Level: 222
     Hp: 18988110
     Sp: 0
-    BaseExp: 4168840
-    JobExp: 2906300
+    BaseExp: 416884
+    JobExp: 290630
     Attack: 11220
     Attack2: 2078
     Defense: 341
@@ -1471,8 +1471,8 @@
     Level: 243
     Hp: 34890060
     Sp: 0
-    BaseExp: 5932940
-    JobExp: 4153050
+    BaseExp: 593294
+    JobExp: 415305
     Attack: 7613
     Attack2: 2175
     Defense: 342
